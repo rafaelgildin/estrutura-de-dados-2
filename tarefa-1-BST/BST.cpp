@@ -207,7 +207,7 @@ public:
   	(ok)caso 3: arvore com 1 no: remove o no
   	caso 4: no folha(sem filho): no pai deve apontar para null e excluir o no. 
   	caso 5: no com 1 filho: no pai do nó escolhido, aponta para o nó filho do nó escolhido. Remove o nó escolhido.
-  	caso 6: no com 2 filhos. pior caso : estudar.
+  	caso 6: no com 2 filhos: pegar o nó, deletar o nó da arvore, inserir os nós novamente(listar os valores em um vetor).
   	*/
   	
 	No *noRemover = Pesquisar(dado, atual);//pegar o nó que deve ser removido
