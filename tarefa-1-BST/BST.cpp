@@ -179,19 +179,70 @@ public:
 	   			return ( 1 + altura(atual->getDir()) );
 	   }
      }
+  }  
+	//versao iterativa ********* refazer
+	int PesquisarNoPaiEFilhos(int dado, No* &noAtual,No* &noAtualPai, No* &noAtualFilhoDir, No* &noAtualFilhoEsq) {
+		// recebe uma arvore que tem mais de 1 no e com o no desejado.
+		No* atual = noAtual;  // cria ptr aux (atual) e comeca a procurar
+	    if (raiz == NULL) return NULL; //arvore vazia
+	    while ( (atual->getDir()->getChave() != dado)  || (atual->getEsq()->getChave() != dado)){//pegar o noAtualPai
+	      if(dado < atual->getChave() ) 
+		  	atual = atual->getEsq(); // caminha para esquerda
+	      else 
+		  	atual = atual->getDir(); // caminha para direita
+//	      if (atual == NULL) 
+//		  	return NULL; // encontrou uma folha e nao encontrou a chave
+	    }
+	    noAtualPai = atual;
+	    noAtualFilhoDir = atual->getDir();
+	    noAtualFilhoEsq = atual->getEsq();
+	    return 0; //encontrou o dado
+	  }
+
+  int RemoverNo(No* atual, int dado) { //******************** rafa
+  	/*
+  	(ok)caso 1: arvore sem nó retorna erro
+  	(ok)caso 2: se o nó não estiver na arvore, retornar erro
+  	- no está na árvore:
+  	(ok)caso 3: arvore com 1 no: remove o no
+  	caso 4: no folha(sem filho): no pai deve apontar para null e excluir o no. 
+  	caso 5: no com 1 filho: no pai do nó escolhido, aponta para o nó filho do nó escolhido. Remove o nó escolhido.
+  	caso 6: no com 2 filhos. pior caso : estudar.
+  	*/
+  	
+	No *noRemover = Pesquisar(dado, atual);//pegar o nó que deve ser removido
+    if(atual == NULL){
+     	cout << "Arvore sem no" << endl;
+		return -1;
+	}
+	else if(noRemover == NULL){
+     	cout << "No nao se encontra na arvore" << endl;
+		return -1;
+	 }
+	else if( (dado == raiz->getChave()) && (contarNos(atual) == 0)){
+     	cout << "arvore com 1 no" << endl;
+     	raiz = NULL;
+     	cout << "no removido" << endl;
+		return -1;
+	}
+	 //nó está na arvore
+    else {
+     	//caso 3
+//     	No *noAtualPai, *noAtualFilhoDir, *noAtualFilhoEsq;
+//     	PesquisarNoPaiEFilhos(dado,atual,noAtualPai,noAtualFilhoDir,noAtualFilhoEsq);// pegar os nós pai e filho
+//     	cout << "atual = " << atual->getChave() << " " << 
+//     		    "noAtualPai = " << noAtualPai->getChave() << " " <<
+//     		    "noAtualFilhoDir = " << noAtualFilhoDir->getChave() << " " <<
+//     		    "noAtualFilhoEsq = " << noAtualFilhoEsq->getChave() << " " << endl;
+     	cout << "pior caso - continuar o desenvolvimento" << endl;
+     	return -1;
+     }
   }
-  
-  
-	//ATIVIDADES INICIAIS DE LAB:
-	//pesquisar()
-	//qdeNos()
-	//alturaArvore()
 	
 	//PROXIMAS ATIVIDADES DE LAB:
 	//ContarFolhas()
 	//ValorMin()
 	//ValorMax()
-	//Remover()
 	
 
 };
@@ -201,7 +252,8 @@ int main(int argc, char *argv[])
 	ArvoreBST arv;
     int opcao, x;
     cout << ("\nTestando o TAD BST (Elementos do tipo int)\n");
-
+	arv.inserir(3);arv.inserir(4);arv.inserir(2); // inserir dados
+	
 	do {
     	cout << "\n\n";
         cout << "\n***********************************";
@@ -224,10 +276,12 @@ int main(int argc, char *argv[])
 		       arv.inserir(x);
 		       break;
 			}
-			case 2: {
-		       cout << "\n Ainda nao implementado! ";
-
-		       break;
+			case 2: {//******************** rafa Excluir
+				int dado;
+				cout << "Digite o valor do no: ";
+				cin >> dado;
+				arv.RemoverNo(arv.getRaiz(), dado);
+				break;
 			}
 			case 3: {		       
 		       cout << "\n Informe o valor da chave (int) -> ";
@@ -253,12 +307,11 @@ int main(int argc, char *argv[])
 			case 6:{
 				cout << "Altura da Arvore: " << arv.altura(arv.getRaiz());
                 break;
-			}			
+			}
 			default:
 				if (opcao != 7)
 					cout << "\n Opcao invalida! \n\n\n";
         } // fim switch
     } while(opcao != 7);
-
 	return 0;
 }
