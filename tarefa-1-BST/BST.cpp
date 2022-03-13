@@ -338,7 +338,7 @@ public:
 			noRemover = NULL;
 			delete noRemover;
 		}
-		//nÃ³ com 2 filhos -> caso 5
+		//nó com 2 filhos -> caso 5
 		if(qFilhos == 2){
 			cout << "no com 2 filhos" << endl;
 			int i,valor, qNos = contarNos(noRemover), q=0;
@@ -391,7 +391,7 @@ int main(int argc, char *argv[])
 	ArvoreBST arv;
     int opcao, x;
     cout << ("\nTestando o TAD BST (Elementos do tipo int)\n");
-//	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
+	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
 //	arv.inserir(5);arv.inserir(15);
 	do {
     	cout << "\n\n";
