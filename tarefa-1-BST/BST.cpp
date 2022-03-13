@@ -14,7 +14,7 @@ public:
 		dir = NULL;
 	}
 
-	// funÁıes getters e setters
+	// fun√ß√µes getters e setters
 	int getChave()
 	{
 		return chave;
@@ -55,46 +55,46 @@ public:
 
 	void inserir(int chave)
 	{
-		if(raiz == NULL) // verifica se a ·rvore est· vazia
-			raiz = new No(chave); // cria um novo nÛ
+		if(raiz == NULL) // verifica se a √°rvore est√° vazia
+			raiz = new No(chave); // cria um novo n√≥
 		else
 			inserirAux(raiz, chave);
 	}
 
 	void inserirAux(No *no, int chave)
 	{
-		// se for menor, ent„o insere ‡ esquerda
+		// se for menor, ent√£o insere √† esquerda
 		if(chave < no->getChave())
 		{
-			// verifica se a esquerda È nulo
+			// verifica se a esquerda √© nulo
 			if(no->getEsq() == NULL)
 			{
 				No *novo_no = new No(chave);
-				no->setEsq(novo_no); // seta o novo_no ‡ esquerda
+				no->setEsq(novo_no); // seta o novo_no √† esquerda
 			}
 			else
 			{
-				// sen„o, continua percorrendo recursivamente
+				// sen√£o, continua percorrendo recursivamente
 				inserirAux(no->getEsq(), chave);
 			}
 		}
-		// se for maior, ent„o insere ‡ direita
+		// se for maior, ent√£o insere √† direita
 		else if(chave > no->getChave())
 		{
-			// verifica se a direita È nulo
+			// verifica se a direita √© nulo
 			if(no->getDir() == NULL)
 			{
 				No *novo_no = new No(chave);
-				no->setDir(novo_no); // seta o novo_no ‡ direita
+				no->setDir(novo_no); // seta o novo_no √† direita
 			}
 			else
 			{
-				// sen„o, continua percorrendo recursivamente
+				// sen√£o, continua percorrendo recursivamente
 				inserirAux(no->getDir(), chave);
 			}
 		}
-		// se for igual, n„o vai inserir
-		// n„o pode existir 2 chaves iguais
+		// se for igual, n√£o vai inserir
+		// n√£o pode existir 2 chaves iguais
 	}
 
 	No* getRaiz()
@@ -132,22 +132,22 @@ public:
 
 		}
 	}
-	
+
 	//versao iterativa
 	No *Pesquisar(int dado, No* no) {
     if (raiz == NULL) return NULL; //arvore vazia
     No* atual = no;  // cria ptr aux (atual) e comeca a procurar
     while (atual->getChave() != dado) {
-      if(dado < atual->getChave() ) 
+      if(dado < atual->getChave() )
 	  	atual = atual->getEsq(); // caminha para esquerda
-      else 
+      else
 	  	atual = atual->getDir(); // caminha para direita
-      if (atual == NULL) 
+      if (atual == NULL)
 	  	return NULL; // encontrou uma folha e nao encontrou a chave
     }
     return atual; //encontrou o dado
   }
-  
+
   //versao recursiva
   No *PesquisarRec (No* r, int k) {
     if (r == NULL || r->getChave() == k)
@@ -157,13 +157,26 @@ public:
     else
        return PesquisarRec(r->getDir(), k);
   }
-  
+
   //versao recursiva
   int contarNos(No* atual) {
    if(atual == NULL)  return 0;
    else return ( 1 + contarNos(atual->getEsq()) + contarNos(atual->getDir()));
   }
-  
+
+  //versao recursiva
+	int contarFolhas(No* atual) {
+		 if(atual == NULL)
+		   return 0;
+		 else {
+			 if(atual->getEsq() == NULL && atual->getDir() == NULL)
+				return 1;
+			 else{
+				return (contarFolhas(atual->getEsq()) + contarFolhas(atual->getDir()));
+			}
+		}
+	}
+
 
   //versao recursiva
   int altura(No* atual) {
@@ -172,26 +185,26 @@ public:
      else {
      	if(atual->getEsq() == NULL && atual->getDir() == NULL)
        		return 0;
-     	else{		 
+     	else{
    			if (altura(atual->getEsq()) > altura(atual->getDir()))
    	   			return ( 1 + altura(atual->getEsq()) );
    			else
 	   			return ( 1 + altura(atual->getDir()) );
 	   }
      }
-  }  
-  
-  	
-	//--------------------------------------------Rafael---------------------------------  
+  }
+
+
+	//--------------------------------------------Rafael---------------------------------
 	void getVetorAvr(No* no, int nosChaves[], No *nosPtr[], int &q)
 	{
 	/*
 	inputs
-		no: nÛ da arvore	
-		nosChaves: vetor com as chaves dos nÛs
-		nosPtr: vetor com os ponteiros dos nÛs
-		q: quantidade de iteraÁıes: idealmente colocar 0
-	outputs por par‚metro:
+		no: n√≥ da arvore
+		nosChaves: vetor com as chaves dos n√≥s
+		nosPtr: vetor com os ponteiros dos n√≥s
+		q: quantidade de itera√ß√µes: idealmente colocar 0
+	outputs por par√¢metro:
 		nosChaves
 		nosPtr
 	*/
@@ -205,31 +218,31 @@ public:
 			getVetorAvr(no->getDir(), nosChaves,nosPtr, q);
 		}
 	}
-	  
-	  
+
+
   //versao iterativa
   No *PesquisarPai(int dado, No* no) {
   	/*
-		retorna o pai de um nÛ.
-		OBS: colocar apenas nÛ com pai  	
+		retorna o pai de um n√≥.
+		OBS: colocar apenas n√≥ com pai
   	*/
     if (raiz == NULL) return NULL; //arvore vazia
     if (no->getChave() == dado) return NULL; //arvore com 1 folha, sem pai
     No* atual = no;  // cria ptr aux (atual) e comeca a procurar
-    No* noFilhoDir = NULL; 
-    No* noFilhoEsq = NULL; 
+    No* noFilhoDir = NULL;
+    No* noFilhoEsq = NULL;
     while (true) {
 	  if(atual->getDir() != NULL)// verificar se tem chave na direita
-			if(atual->getDir()->getChave() == dado) //verifica se È o dado
+			if(atual->getDir()->getChave() == dado) //verifica se √© o dado
 				return atual;
 	  if(atual->getEsq() != NULL)// verificar se tem chave na esquerda
-			if(atual->getEsq()->getChave() == dado) //verifica se È o dado
-				return atual;    	
+			if(atual->getEsq()->getChave() == dado) //verifica se √© o dado
+				return atual;
       if(dado < atual->getChave() )
 	  	atual = atual->getEsq(); // caminha para esquerda
-      else 
+      else
 	  	atual = atual->getDir(); // caminha para direita
-      if (atual == NULL) 
+      if (atual == NULL)
 	  	return NULL; // encontrou uma folha e nao encontrou a chave
     }
     return atual; //encontrou o dado
@@ -237,19 +250,19 @@ public:
 
   int RemoverNo(No* atual, int dado) {
   	/*
-  	Remover um nÛ da ·rvore
-  	situaÁıes possÌveis:
-  		(nÛ n„o est· na ·rvore)
-	  	caso 1: arvore sem nÛ retorna erro
-	  	caso 2: se o nÛ n„o estiver na arvore, retornar erro
-	  	(nÛ est· na ·rvore)
-	  	caso 3: arvore com 1 no, no folha(sem filho): no pai deve apontar para null e excluir o no. 
+  	Remover um n√≥ da √°rvore
+  	situa√ß√µes poss√≠veis:
+  		(n√≥ n√£o est√° na √°rvore)
+	  	caso 1: arvore sem n√≥ retorna erro
+	  	caso 2: se o n√≥ n√£o estiver na arvore, retornar erro
+	  	(n√≥ est√° na √°rvore)
+	  	caso 3: arvore com 1 no, no folha(sem filho): no pai deve apontar para null e excluir o no.
 	  	caso 4: no com 1 filho
 		caso 5: no com 2 filhos
   	*/
   	cout << "entra no RemoverNo" << endl;
-	No *noRemover = Pesquisar(dado, atual);//pegar o nÛ que deve ser removido
-	
+	No *noRemover = Pesquisar(dado, atual);//pegar o n√≥ que deve ser removido
+
     if(atual == NULL){//caso 1
      	cout << "Arvore sem no" << endl;
 		return -1;
@@ -257,7 +270,7 @@ public:
 	else if(noRemover == NULL){//caso 2
      	cout << "No nao se encontra na arvore" << endl;
 		return -1;
-	 }//nÛ est· na arvore caso 3:
+	 }//n√≥ est√° na arvore caso 3:
 	else if( (dado == raiz->getChave()) && (contarNos(atual) == 1)){
      	cout << "arvore com 1 no" << endl;
      	raiz = NULL;
@@ -268,14 +281,14 @@ public:
 	{
 	//no com 1 filho:
 		cout << "noRemover = " << noRemover->getChave() << " " << endl;
-		// pegar alguns dados sobre o nÛ
+		// pegar alguns dados sobre o n√≥
 	   	No *noPai = PesquisarPai(dado, atual);
 		No *noFilhoDir=NULL, *noFilhoEsq = NULL;
 		int qFilhos=0, qPai=0;
 		if(noPai != NULL){// verificar se tem pai
 			cout << "noPai = " << noPai->getChave() << " " << endl;
 			qPai++;
-		}	
+		}
 		if(noRemover->getDir() != NULL){// verificar se tem chave na direita, se sim a pega
 			noFilhoDir = noRemover->getDir();
 			cout << "noFilhoDir = " << noFilhoDir->getChave() << " " << endl;
@@ -285,7 +298,7 @@ public:
 			noFilhoEsq = noRemover->getEsq();
 			cout << "noFilhoEsq = " << noFilhoEsq->getChave() << " " << endl;
 			qFilhos++;
-		}	
+		}
 		//no com 1 filho e sem pai (no = raiz)
 		if(qFilhos == 1 && qPai == 0){
 			cout << "no com 1 filho e sem pai" << endl;
@@ -300,12 +313,12 @@ public:
 			}
 			noRemover = NULL;
 			delete noRemover;
-		} 
+		}
 		//no sem filho e com pai
 		if(qFilhos == 0 && qPai == 1){
 			cout << "no sem filho e com pai" << endl;
 			//pai aponta para NULL em dir e esq
-			//deletar o nÛ antigo
+			//deletar o n√≥ antigo
 			noPai->setDir(NULL);
 			noPai->setEsq(NULL);
 			noRemover = NULL;
@@ -313,7 +326,7 @@ public:
 		}
 		//no com 1 filho e com pai
 		if(qFilhos == 1 && qPai == 1){
-			cout << "no com 1 filho e com pai" << endl;	
+			cout << "no com 1 filho e com pai" << endl;
 			//paiNoRemover aponta para filhoNoRemover
 			//deletar NoRemover
 			if (noFilhoDir != NULL){
@@ -325,14 +338,14 @@ public:
 			noRemover = NULL;
 			delete noRemover;
 		}
-		//nÛ com 2 filhos -> caso 5
+		//n√≥ com 2 filhos -> caso 5
 		if(qFilhos == 2){
 			cout << "no com 2 filhos" << endl;
 			int i,valor, qNos = contarNos(noRemover), q=0;
 			No *nosPtr[qNos];
 			int nosChaves[qNos];
 			getVetorAvr(noRemover, nosChaves, nosPtr,q); //criar um vetor com a sub-arvore, com raiz = noRemover -> getVetorAvr()
-			
+
 			//se tiver noPai apontar para NULL no lado do noRemover
 			if(noPai != NULL){
 				if(noRemover == noPai->getDir())
@@ -347,7 +360,7 @@ public:
 			//inserir os nos na arvore
 			for(i=0; i<qNos; i++){
 				cout << "i:" << i << "  nosChaves=" << nosChaves[i] << "   nosPtr=" << nosPtr[i] << endl;
-				if(nosChaves[i] != noRemover->getChave()){//n„o inserir o noRemover, quando esse n„o È raiz
+				if(nosChaves[i] != noRemover->getChave()){//n√£o inserir o noRemover, quando esse n√£o √© raiz
 					valor = nosChaves[i];
 					inserir(valor);
 				}
@@ -360,16 +373,16 @@ public:
      	cout << "qPai=" << qPai << "  qFilhos=" << qFilhos << endl;
 		cout << "Fim fa funcao RemoverNo" << endl;
      	return -1;
-     	
+
     }
   }
-  //--------------------------------------------Rafael--------------------------------- 
-	
+  //--------------------------------------------Rafael---------------------------------
+
 	//PROXIMAS ATIVIDADES DE LAB:
 	//ContarFolhas()
 	//ValorMin()
 	//ValorMax()
-	
+
 
 };
 
@@ -390,8 +403,9 @@ int main(int argc, char *argv[])
 		cout << "\n ----3: Pesquisar";
 		cout << "\n ----4: Imprimir em ordem";
 		cout << "\n ----5: Qde de nos";
-		cout << "\n ----6: Altura";
-		cout << "\n ----7: Sair do programa\n";
+		cout << "\n ----6: Qde de folhas";
+		cout << "\n ----7: Altura";
+		cout << "\n ----8: Sair do programa\n";
 		cout << "\n***********************************";
 		cout << "\n-> ";
 		cin >> opcao;
@@ -409,7 +423,7 @@ int main(int argc, char *argv[])
 				arv.RemoverNo(arv.getRaiz(), dado);
 				break;
 			}
-			case 3: {		       
+			case 3: {
 		       cout << "\n Informe o valor da chave (int) -> ";
 		       cin >> x;
 		       //No *ret = arv.Pesquisar(x,arv.getRaiz());
@@ -417,8 +431,8 @@ int main(int argc, char *argv[])
 		       if (ret == NULL){
 		       	cout << "\n Chave nao encontrada! ";
 			   }else{
-			   	cout << "\n Chave encontrada! ";			   	
-			   }      			    	
+			   	cout << "\n Chave encontrada! ";
+			   }
 		       break;
 			}
 			case 4: {
@@ -431,6 +445,10 @@ int main(int argc, char *argv[])
                 break;
 			}
 			case 6:{
+				cout << "Qde de folhas: " << arv.contarFolhas(arv.getRaiz());
+				break;
+			}
+			case 7:{
 				cout << "Altura da Arvore: " << arv.altura(arv.getRaiz());
                 break;
 			}
@@ -438,6 +456,6 @@ int main(int argc, char *argv[])
 				if (opcao != 7)
 					cout << "\n Opcao invalida! \n\n\n";
         } // fim switch
-    } while(opcao != 7);
+    } while(opcao != 8);
 	return 0;
 }
