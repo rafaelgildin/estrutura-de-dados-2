@@ -180,64 +180,190 @@ public:
 	   }
      }
   }  
-	//versao iterativa ********* refazer
-	int PesquisarNoPaiEFilhos(int dado, No* &noAtual,No* &noAtualPai, No* &noAtualFilhoDir, No* &noAtualFilhoEsq) {
-		// recebe uma arvore que tem mais de 1 no e com o no desejado.
-		No* atual = noAtual;  // cria ptr aux (atual) e comeca a procurar
-	    if (raiz == NULL) return NULL; //arvore vazia
-	    while ( (atual->getDir()->getChave() != dado)  || (atual->getEsq()->getChave() != dado)){//pegar o noAtualPai
-	      if(dado < atual->getChave() ) 
-		  	atual = atual->getEsq(); // caminha para esquerda
-	      else 
-		  	atual = atual->getDir(); // caminha para direita
-//	      if (atual == NULL) 
-//		  	return NULL; // encontrou uma folha e nao encontrou a chave
-	    }
-	    noAtualPai = atual;
-	    noAtualFilhoDir = atual->getDir();
-	    noAtualFilhoEsq = atual->getEsq();
-	    return 0; //encontrou o dado
-	  }
-
-  int RemoverNo(No* atual, int dado) { //******************** rafa
-  	/*
-  	(ok)caso 1: arvore sem nó retorna erro
-  	(ok)caso 2: se o nó não estiver na arvore, retornar erro
-  	- no está na árvore:
-  	(ok)caso 3: arvore com 1 no: remove o no
-  	caso 4: no folha(sem filho): no pai deve apontar para null e excluir o no. 
-  	caso 5: no com 1 filho: no pai do nó escolhido, aponta para o nó filho do nó escolhido. Remove o nó escolhido.
-  	caso 6: no com 2 filhos: pegar o nó, deletar o nó da arvore, inserir os nós novamente(listar os valores em um vetor).
-  	*/
+  
   	
+	//--------------------------------------------Rafael---------------------------------  
+	void getVetorAvr(No* no, int nosChaves[], No *nosPtr[], int &q)
+	{
+	/*
+	inputs
+		no: nó da arvore	
+		nosChaves: vetor com as chaves dos nós
+		nosPtr: vetor com os ponteiros dos nós
+		q: quantidade de iterações: idealmente colocar 0
+	outputs por parâmetro:
+		nosChaves
+		nosPtr
+	*/
+		if(no != NULL)
+		{
+			getVetorAvr(no->getEsq(), nosChaves,nosPtr, q);
+			//cout << "q = " << q << "  | chave = " << no->getChave() <<  endl;
+			nosChaves[q] = no->getChave();
+			nosPtr[q] = no;
+			q+=1;
+			getVetorAvr(no->getDir(), nosChaves,nosPtr, q);
+		}
+	}
+	  
+	  
+  //versao iterativa
+  No *PesquisarPai(int dado, No* no) {
+  	/*
+		retorna o pai de um nó.
+		OBS: colocar apenas nó com pai  	
+  	*/
+    if (raiz == NULL) return NULL; //arvore vazia
+    if (no->getChave() == dado) return NULL; //arvore com 1 folha, sem pai
+    No* atual = no;  // cria ptr aux (atual) e comeca a procurar
+    No* noFilhoDir = NULL; 
+    No* noFilhoEsq = NULL; 
+    while (true) {
+	  if(atual->getDir() != NULL)// verificar se tem chave na direita
+			if(atual->getDir()->getChave() == dado) //verifica se é o dado
+				return atual;
+	  if(atual->getEsq() != NULL)// verificar se tem chave na esquerda
+			if(atual->getEsq()->getChave() == dado) //verifica se é o dado
+				return atual;    	
+      if(dado < atual->getChave() )
+	  	atual = atual->getEsq(); // caminha para esquerda
+      else 
+	  	atual = atual->getDir(); // caminha para direita
+      if (atual == NULL) 
+	  	return NULL; // encontrou uma folha e nao encontrou a chave
+    }
+    return atual; //encontrou o dado
+  }
+
+  int RemoverNo(No* atual, int dado) {
+  	/*
+  	Remover um nó da árvore
+  	situações possíveis:
+  		(nó não está na árvore)
+	  	caso 1: arvore sem nó retorna erro
+	  	caso 2: se o nó não estiver na arvore, retornar erro
+	  	(nó está na árvore)
+	  	caso 3: arvore com 1 no, no folha(sem filho): no pai deve apontar para null e excluir o no. 
+	  	caso 4: no com 1 filho
+		caso 5: no com 2 filhos
+  	*/
+  	cout << "entra no RemoverNo" << endl;
 	No *noRemover = Pesquisar(dado, atual);//pegar o nó que deve ser removido
-    if(atual == NULL){
+	
+    if(atual == NULL){//caso 1
      	cout << "Arvore sem no" << endl;
 		return -1;
 	}
-	else if(noRemover == NULL){
+	else if(noRemover == NULL){//caso 2
      	cout << "No nao se encontra na arvore" << endl;
 		return -1;
-	 }
-	else if( (dado == raiz->getChave()) && (contarNos(atual) == 0)){
+	 }//nó está na arvore caso 3:
+	else if( (dado == raiz->getChave()) && (contarNos(atual) == 1)){
      	cout << "arvore com 1 no" << endl;
      	raiz = NULL;
      	cout << "no removido" << endl;
 		return -1;
 	}
-	 //nó está na arvore
-    else {
-     	//caso 3
-//     	No *noAtualPai, *noAtualFilhoDir, *noAtualFilhoEsq;
-//     	PesquisarNoPaiEFilhos(dado,atual,noAtualPai,noAtualFilhoDir,noAtualFilhoEsq);// pegar os nós pai e filho
-//     	cout << "atual = " << atual->getChave() << " " << 
-//     		    "noAtualPai = " << noAtualPai->getChave() << " " <<
-//     		    "noAtualFilhoDir = " << noAtualFilhoDir->getChave() << " " <<
-//     		    "noAtualFilhoEsq = " << noAtualFilhoEsq->getChave() << " " << endl;
-     	cout << "pior caso - continuar o desenvolvimento" << endl;
+    else //caso 4
+	{
+	//no com 1 filho:
+		cout << "noRemover = " << noRemover->getChave() << " " << endl;
+		// pegar alguns dados sobre o nó
+	   	No *noPai = PesquisarPai(dado, atual);
+		No *noFilhoDir=NULL, *noFilhoEsq = NULL;
+		int qFilhos=0, qPai=0;
+		if(noPai != NULL){// verificar se tem pai
+			cout << "noPai = " << noPai->getChave() << " " << endl;
+			qPai++;
+		}	
+		if(noRemover->getDir() != NULL){// verificar se tem chave na direita, se sim a pega
+			noFilhoDir = noRemover->getDir();
+			cout << "noFilhoDir = " << noFilhoDir->getChave() << " " << endl;
+			qFilhos++;
+		}
+		if(noRemover->getEsq() != NULL){// verificar se tem chave na esquerda, se sim a pega
+			noFilhoEsq = noRemover->getEsq();
+			cout << "noFilhoEsq = " << noFilhoEsq->getChave() << " " << endl;
+			qFilhos++;
+		}	
+		//no com 1 filho e sem pai (no = raiz)
+		if(qFilhos == 1 && qPai == 0){
+			cout << "no com 1 filho e sem pai" << endl;
+			//pegar o filho
+			//raiz = filho
+			//deletar o no antigo
+			if (noFilhoDir != NULL){
+				raiz = noFilhoDir;
+			}
+			if (noFilhoEsq != NULL){
+				raiz = noFilhoEsq;
+			}
+			noRemover = NULL;
+			delete noRemover;
+		} 
+		//no sem filho e com pai
+		if(qFilhos == 0 && qPai == 1){
+			cout << "no sem filho e com pai" << endl;
+			//pai aponta para NULL em dir e esq
+			//deletar o nó antigo
+			noPai->setDir(NULL);
+			noPai->setEsq(NULL);
+			noRemover = NULL;
+			delete noRemover;
+		}
+		//no com 1 filho e com pai
+		if(qFilhos == 1 && qPai == 1){
+			cout << "no com 1 filho e com pai" << endl;	
+			//paiNoRemover aponta para filhoNoRemover
+			//deletar NoRemover
+			if (noFilhoDir != NULL){
+				noPai->setDir(noFilhoDir);
+			}
+			if (noFilhoEsq != NULL){
+				noPai->setEsq(noFilhoEsq);
+			}
+			noRemover = NULL;
+			delete noRemover;
+		}
+		//nó com 2 filhos -> caso 5
+		if(qFilhos == 2){
+			cout << "no com 2 filhos" << endl;
+			int i,valor, qNos = contarNos(noRemover), q=0;
+			No *nosPtr[qNos];
+			int nosChaves[qNos];
+			getVetorAvr(noRemover, nosChaves, nosPtr,q); //criar um vetor com a sub-arvore, com raiz = noRemover -> getVetorAvr()
+			
+			//se tiver noPai apontar para NULL no lado do noRemover
+			if(noPai != NULL){
+				if(noRemover == noPai->getDir())
+					noPai->setDir(NULL);
+				if(noRemover == noPai->getEsq())
+					noPai->setEsq(NULL);
+			}
+			//colocar noFilhoDir como raiz, se noRemover for raiz
+			if(noRemover==raiz){
+					raiz = noFilhoDir;
+				}
+			//inserir os nos na arvore
+			for(i=0; i<qNos; i++){
+				cout << "i:" << i << "  nosChaves=" << nosChaves[i] << "   nosPtr=" << nosPtr[i] << endl;
+				if(nosChaves[i] != noRemover->getChave()){//não inserir o noRemover, quando esse não é raiz
+					valor = nosChaves[i];
+					inserir(valor);
+				}
+			}
+			//deletar noRemover
+			noRemover->setDir(NULL);
+			noRemover->setEsq(NULL);
+			delete noRemover;
+		}
+     	cout << "qPai=" << qPai << "  qFilhos=" << qFilhos << endl;
+		cout << "Fim fa funcao RemoverNo" << endl;
      	return -1;
-     }
+     	
+    }
   }
+  //--------------------------------------------Rafael--------------------------------- 
 	
 	//PROXIMAS ATIVIDADES DE LAB:
 	//ContarFolhas()
@@ -252,8 +378,8 @@ int main(int argc, char *argv[])
 	ArvoreBST arv;
     int opcao, x;
     cout << ("\nTestando o TAD BST (Elementos do tipo int)\n");
-	arv.inserir(3);arv.inserir(4);arv.inserir(2); // inserir dados
-	
+//	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
+//	arv.inserir(5);arv.inserir(15);
 	do {
     	cout << "\n\n";
         cout << "\n***********************************";
