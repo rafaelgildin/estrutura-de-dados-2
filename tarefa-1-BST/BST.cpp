@@ -379,16 +379,16 @@ public:
   //--------------------------------------------Rafael---------------------------------
 
 
-    int encontrarMax(No* root)
+    int encontrarMax(No* no)
     {
         // Caso nulo
-        if (root == NULL)
+        if (no == NULL)
             return -2147483648;
 
         // Retorno de 3 valores: Chave da raiz, maximo na sub arvore da direita, e maximo na sub arvore da esquerda
-        int res = root->getChave();
-        int dirRes = encontrarMax(root->getEsq());
-        int esqRes = encontrarMax(root->getDir());
+        int res = no->getChave();
+        int dirRes = encontrarMax(no->getEsq());
+        int esqRes = encontrarMax(no->getDir());
         if (esqRes > res)
             res = esqRes;
         if (dirRes > res)
@@ -396,16 +396,16 @@ public:
         return res;
     }
 
-    int encontrarMin(No* root)
+    int encontrarMin(No* no)
     {
         // Caso nulo
-        if (root == nullptr)
+        if (no == nullptr)
             return 2147483647; //Valor maximo do int
 
         // Retorno de 3 valores: Chave da raiz, minimo na sub árvore da direita, e minimo na sub árvore da esquerda
-        int res = root->getChave();
-        int esqRes = encontrarMin(root->getEsq());
-        int dirRes = encontrarMin(root->getDir());
+        int res = no->getChave();
+        int esqRes = encontrarMin(no->getEsq());
+        int dirRes = encontrarMin(no->getDir());
         if (esqRes < res)
             res = esqRes;
         if (dirRes < res)
@@ -433,9 +433,9 @@ int main(int argc, char *argv[])
 		cout << "\n ----5: Qde de nos";
 		cout << "\n ----6: Qde de folhas";
 		cout << "\n ----7: Altura";
-        cout << "\n ----8: Valor maximo\n";
-        cout << "\n ----9: Valor minimo\n";
-		cout << "\n ----10: Sair do programa\n";
+        cout << "\n ----8: Valor maximo";
+        cout << "\n ----9: Valor minimo";
+		cout << "\n ----10: Sair do programa";
 		cout << "\n***********************************";
 		cout << "\n-> ";
 		cin >> opcao;
