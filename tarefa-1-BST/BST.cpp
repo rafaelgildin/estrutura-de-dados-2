@@ -318,9 +318,13 @@ public:
 		if(qFilhos == 0 && qPai == 1){
 			cout << "no sem filho e com pai" << endl;
 			//pai aponta para NULL em dir e esq
-			//deletar o nó antigo
-			noPai->setDir(NULL);
-			noPai->setEsq(NULL);
+			//deletar o no antigo
+			if (noPai->getDir() == noRemover){
+				noPai->setDir(NULL);
+			}
+			if (noPai->getEsq() == noRemover){
+				noPai->setEsq(NULL);
+			}
 			noRemover = NULL;
 			delete noRemover;
 		}
@@ -338,7 +342,7 @@ public:
 			noRemover = NULL;
 			delete noRemover;
 		}
-		//n� com 2 filhos -> caso 5
+		//no com 2 filhos -> caso 5
 		if(qFilhos == 2){
 			cout << "no com 2 filhos" << endl;
 			int i,valor, qNos = contarNos(noRemover), q=0;
@@ -384,7 +388,6 @@ public:
         // Caso nulo
         if (no == NULL)
             return -2147483648;
-
         // Retorno de 3 valores: Chave da raiz, maximo na sub arvore da direita, e maximo na sub arvore da esquerda
         int res = no->getChave();
         int dirRes = encontrarMax(no->getEsq());
@@ -399,7 +402,7 @@ public:
     int encontrarMin(No* no)
     {
         // Caso nulo
-        if (no == nullptr)
+        if (no == NULL)
             return 2147483647; //Valor maximo do int
 
         // Retorno de 3 valores: Chave da raiz, minimo na sub árvore da direita, e minimo na sub árvore da esquerda
@@ -419,7 +422,7 @@ int main(int argc, char *argv[])
 	ArvoreBST arv;
     int opcao, x;
     cout << ("\nTestando o TAD BST (Elementos do tipo int)\n");
-	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
+//	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
 //	arv.inserir(5);arv.inserir(15);
 	do {
     	cout << "\n";
@@ -483,11 +486,21 @@ int main(int argc, char *argv[])
                 break;
 			}
             case 8:{
-                cout << "Valor maximo: " << arv.encontrarMax(arv.getRaiz());
+            	int max = arv.encontrarMax(arv.getRaiz());
+            	if(max == -2147483648){
+            		cout << "arvore sem no" << endl;
+            		break;
+				}
+                cout << "Valor maximo: " << max;
                 break;
             }
             case 9:{
-                cout << "Valor minimo: " << arv.encontrarMin(arv.getRaiz());
+            	int min = arv.encontrarMin(arv.getRaiz());
+            	if(min == 2147483647){
+            		cout << "arvore sem no" << endl;
+            		break;
+				}
+                cout << "Valor minimo: " << min;
                 break;
             }
 			default:
