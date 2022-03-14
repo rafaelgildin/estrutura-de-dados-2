@@ -338,7 +338,7 @@ public:
 			noRemover = NULL;
 			delete noRemover;
 		}
-		//n� com 2 filhos -> caso 5
+		//n� com 2 filhos -> caso 5
 		if(qFilhos == 2){
 			cout << "no com 2 filhos" << endl;
 			int i,valor, qNos = contarNos(noRemover), q=0;
@@ -378,12 +378,40 @@ public:
   }
   //--------------------------------------------Rafael---------------------------------
 
-	//PROXIMAS ATIVIDADES DE LAB:
-	//ContarFolhas()
-	//ValorMin()
-	//ValorMax()
 
+    int encontrarMax(No* root)
+    {
+        // Caso nulo
+        if (root == NULL)
+            return -2147483648;
 
+        // Retorno de 3 valores: Chave da raiz, maximo na sub arvore da direita, e maximo na sub arvore da esquerda
+        int res = root->getChave();
+        int dirRes = encontrarMax(root->getEsq());
+        int esqRes = encontrarMax(root->getDir());
+        if (esqRes > res)
+            res = esqRes;
+        if (dirRes > res)
+            res = dirRes;
+        return res;
+    }
+
+    int encontrarMin(No* root)
+    {
+        // Caso nulo
+        if (root == nullptr)
+            return 2147483647; //Valor maximo do int
+
+        // Retorno de 3 valores: Chave da raiz, minimo na sub árvore da direita, e minimo na sub árvore da esquerda
+        int res = root->getChave();
+        int esqRes = encontrarMin(root->getEsq());
+        int dirRes = encontrarMin(root->getDir());
+        if (esqRes < res)
+            res = esqRes;
+        if (dirRes < res)
+            res = dirRes;
+        return res;
+    }
 };
 
 int main(int argc, char *argv[])
@@ -394,7 +422,7 @@ int main(int argc, char *argv[])
 	arv.inserir(20);arv.inserir(10);arv.inserir(30); // inserir dados
 //	arv.inserir(5);arv.inserir(15);
 	do {
-    	cout << "\n\n";
+    	cout << "\n";
         cout << "\n***********************************";
         cout << "\n\tMenu - Arvore BST\n";
         cout << "\nEntre com a opcao:";
@@ -405,7 +433,9 @@ int main(int argc, char *argv[])
 		cout << "\n ----5: Qde de nos";
 		cout << "\n ----6: Qde de folhas";
 		cout << "\n ----7: Altura";
-		cout << "\n ----8: Sair do programa\n";
+        cout << "\n ----8: Valor maximo\n";
+        cout << "\n ----9: Valor minimo\n";
+		cout << "\n ----10: Sair do programa\n";
 		cout << "\n***********************************";
 		cout << "\n-> ";
 		cin >> opcao;
@@ -452,10 +482,17 @@ int main(int argc, char *argv[])
 				cout << "Altura da Arvore: " << arv.altura(arv.getRaiz());
                 break;
 			}
+            case 8:{
+                cout << "Valor maximo: " << arv.encontrarMax(arv.getRaiz());
+                break;
+            }
+            case 9:{
+                cout << "Valor minimo: " << arv.encontrarMin(arv.getRaiz());
+                break;
+            }
 			default:
-				if (opcao != 7)
-					cout << "\n Opcao invalida! \n\n\n";
+                cout << "\n Opcao invalida! \n";
         } // fim switch
-    } while(opcao != 8);
+    } while(opcao != 10);
 	return 0;
 }
