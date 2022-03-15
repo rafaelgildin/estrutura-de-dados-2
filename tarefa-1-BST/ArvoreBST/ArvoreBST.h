@@ -1,6 +1,3 @@
-//
-// Created by gustavo on 15/03/2022.
-//
 
 #ifndef ESTRUTURA_ARVOREBST_H
 #define ESTRUTURA_ARVOREBST_H
