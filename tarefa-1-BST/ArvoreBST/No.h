@@ -1,6 +1,3 @@
-//
-// Created by gustavo on 15/03/2022.
-//
 
 #ifndef ESTRUTURA_NO_H
 #define ESTRUTURA_NO_H
