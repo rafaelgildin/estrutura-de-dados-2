@@ -1,6 +1,3 @@
-//
-// Created by gustavo on 15/03/2022.
-//
 
 #include "ArvoreBST.h"
 
