@@ -1,4 +1,3 @@
-
 #ifndef ESTRUTURA_NO_H
 #define ESTRUTURA_NO_H
 #include <iostream>
@@ -18,7 +17,7 @@ public:
         dir = NULL;
     }
 
-    // funÃ§Ãµes getters e setters
+    // funções getters e setters
     int getChave()
     {
         return chave;
@@ -47,3 +46,4 @@ public:
 
 
 #endif //ESTRUTURA_NO_H
+
