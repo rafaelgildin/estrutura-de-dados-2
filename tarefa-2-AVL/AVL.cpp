@@ -5,11 +5,11 @@ class No
 {
     private:
 	No *esq, *dir;
-	int chave;
+	std::string chave;
 	int FB;
 
     public:
-	No(int chave)
+	No(std::string chave)
 	{
 		this->chave = chave;
 		esq = NULL;
@@ -17,7 +17,7 @@ class No
 		FB=0;
 	}
 
-	int getChave()
+    std::string getChave()
 	{
 		return chave;
 	}
@@ -61,12 +61,12 @@ class Arvore
 		raiz = NULL;
 	}
 
-	void inserir(int chave)
+	void inserir(std::string chave)
 	{
         raiz = inserir(raiz, chave);
 	}
     // insere recursivamente um novo no
-	No * inserir(No *no, int chave)
+	No * inserir(No *no, std::string chave)
 	{
 		if( no == NULL ){
             //seta que alterou a subarvore e eh para testar o Fator de Balanceamento
@@ -246,22 +246,3 @@ class Arvore
 
 // para visualizar a execucao acesse
 // https://pythontutor.com/cpp.html#mode=edit
-int main(int argc, char *argv[])
-{
-	Arvore arv;
-
-	// insere as chaves
-	arv.inserir(8);
-    arv.inserir(15);
-    arv.inserir(18);
-    arv.inserir(25);
-    arv.inserir(19);
-
-
-	// percorre em ordem iniciando da raiz
-	cout << "\nPercorrendo em ordem crescrente...\n";
-	arv.emOrdem();
-    cout << "\nDenhando a arvore deitada...\n";
-    arv.DesenhaArvore();
-	return 0;
-}
