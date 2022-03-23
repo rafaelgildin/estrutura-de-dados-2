@@ -7,11 +7,13 @@ class No
 	No *esq, *dir;
 	std::string chave;
 	int FB;
+	float f1;
 
     public:
-	No(std::string chave)
+	No(std::string chave, float f1)
 	{
 		this->chave = chave;
+		this->f1 = f1;
 		esq = NULL;
 		dir = NULL;
 		FB=0;
@@ -20,6 +22,10 @@ class No
     std::string getChave()
 	{
 		return chave;
+	}
+	
+	float getF1(){
+		return f1;
 	}
 
 	// funcoes getters e setters
@@ -61,23 +67,23 @@ class Arvore
 		raiz = NULL;
 	}
 
-	void inserir(std::string chave)
+	void inserir(std::string chave, float f1)
 	{
-        raiz = inserir(raiz, chave);
+        raiz = inserir(raiz, chave, f1);
 	}
     // insere recursivamente um novo no
-	No * inserir(No *no, std::string chave)
+	No * inserir(No *no, std::string chave, float f1)
 	{
 		if( no == NULL ){
             //seta que alterou a subarvore e eh para testar o Fator de Balanceamento
             testaFB = 1;
-            return new No(chave);
+            return new No(chave, f1);
 		}
 		// se for menor, entao insere a esquerda
 		if(chave < no->getChave())
 		{
             //percorre recursivamente a subarvore da esquerda
-            no->setEsq(inserir(no->getEsq(), chave));
+            no->setEsq(inserir(no->getEsq(), chave, f1));
 
 			// testa o fator de  balanceamento apos a insercao na subarvore da esquerda
 			if( testaFB ){
@@ -100,7 +106,7 @@ class Arvore
 		else if(chave > no->getChave()){
 
             //percorre recursivamente a subarvore da direita
-            no->setDir(inserir(no->getDir(), chave));
+            no->setDir(inserir(no->getDir(), chave, f1));
             // testa o fator de  balanceamento apos a insercao na subarvore da esquerda
 			if( testaFB ){
                 switch( no->getFB() ){
@@ -242,6 +248,10 @@ class Arvore
             DesenhaArvore(no->getEsq(), espacos + 4 );
         }
     }
+    
+    void getRaiz(){
+    	cout << "raiz = " << raiz->getF1() << endl;
+	}
 };
 
 // para visualizar a execucao acesse
