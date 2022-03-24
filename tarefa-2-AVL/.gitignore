@@ -6,3 +6,4 @@
 *.txt
 *.pdf
 .ipynb_checkpoints
+.vscode

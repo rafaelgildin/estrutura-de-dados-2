@@ -61,10 +61,10 @@ class No
 class Arvore
 {
     private:
-	No *raiz;
 	int testaFB{};
 
     public:
+    No *raiz;
 	Arvore()
 	{
 		raiz = nullptr;

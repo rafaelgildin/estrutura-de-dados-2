@@ -9,7 +9,6 @@
 int main(int argc, char *argv[])
 {
     Arvore arv;
-
     vector<vector<string> > tabela;
     lerCSV("dados/dados_finais.csv", tabela);
 
@@ -30,9 +29,10 @@ int main(int argc, char *argv[])
     }
 
     // percorre em ordem iniciando da raiz
-    cout << "\nPercorrendo em ordem crescrente...\n";
+    cout << "\nPercorrendo em ordem crescrente...\n\n";
     arv.emOrdem();
-    cout << "\nDenhando a arvore deitada...\n";
-    arv.DesenhaArvore();
+    // cout << "\nDenhando a arvore deitada...\n";
+    // arv.DesenhaArvore();
+
     return 0;
 }
