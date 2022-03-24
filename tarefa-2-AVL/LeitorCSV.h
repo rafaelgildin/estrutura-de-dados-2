@@ -76,6 +76,7 @@ void lerCSV(const string& arquivo, vector<vector<string> >& tabela)
 
     if (!line.empty())
         tabela.push_back(line);
+
 }
 
 #endif //ESTRUTURA_LEITORCSV_CPP

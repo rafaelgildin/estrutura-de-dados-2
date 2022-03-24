@@ -26,6 +26,15 @@ class No
 	{
 		return chave;
 	}
+
+    float procurarDado(const string& coluna){
+        for (int i=0;i<dados.size();i++){
+            if (coluna == dados[i].first){
+                return dados[i].second;
+            }
+        }
+        cout << "Coluna não encontrada!" << endl;
+    }
 	
 	const vector<pair<std::string, float>>& getDados(){
 		return dados;
@@ -62,6 +71,8 @@ class Arvore
 {
     private:
 	No *raiz;
+    No *selecionado = nullptr;
+
 	int testaFB{};
 
     public:
@@ -255,6 +266,28 @@ class Arvore
     void getRaiz(){
     	cout << "raiz = " << raiz->getChave() << endl;
 	}
+
+    void selecionarNo(const string& chave){
+        selecionarNoRec(raiz, chave);
+    }
+
+    void selecionarNoRec(No *no, const string& chave){
+        if(no != nullptr)
+        {
+            selecionarNoRec(no->getEsq(), chave);
+            if (no->getChave() == chave){
+                cout << "Alimento encontrado!" << endl;
+                selecionado = no;
+            }
+            selecionarNoRec(no->getDir(), chave);
+        }
+    }
+
+    No * getSelecionado(){
+        return selecionado;
+    }
+
+
 };
 
 // para visualizar a execucao acesse
