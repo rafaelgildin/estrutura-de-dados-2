@@ -33,6 +33,5 @@ int main(int argc, char *argv[])
     arv.emOrdem();
     // cout << "\nDenhando a arvore deitada...\n";
     // arv.DesenhaArvore();
-
     return 0;
 }
