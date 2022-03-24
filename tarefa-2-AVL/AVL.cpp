@@ -1,4 +1,7 @@
 #include <iostream>
+#include <utility>
+#include <vector>
+
 using namespace std;
 
 class No
@@ -7,15 +10,15 @@ class No
 	No *esq, *dir;
 	std::string chave;
 	int FB;
-	float f1;
+	vector<pair<string, float>> dados;
 
     public:
-	No(std::string chave, float f1)
+	No(std::string chave, vector<pair<string, float>> dados)
 	{
-		this->chave = chave;
-		this->f1 = f1;
-		esq = NULL;
-		dir = NULL;
+		this->chave = std::move(chave);
+		this->dados = std::move(dados);
+		esq = nullptr;
+		dir = nullptr;
 		FB=0;
 	}
 
@@ -24,8 +27,8 @@ class No
 		return chave;
 	}
 	
-	float getF1(){
-		return f1;
+	const vector<pair<std::string, float>>& getDados(){
+		return dados;
 	}
 
 	// funcoes getters e setters
@@ -45,13 +48,13 @@ class No
 	{
 		dir = no;
 	}
-	int getFB(){
+	int getFB() const{
 	    return FB;
 	}
 	
-	//FB = R - L
-    void setFB(int FB){ 
-	    this->FB = FB;
+	//FatorB = R - L
+    void setFB(int FatorB){
+	    this->FB = FatorB;
 	}
 };
 
@@ -59,31 +62,31 @@ class Arvore
 {
     private:
 	No *raiz;
-	int testaFB;
+	int testaFB{};
 
     public:
 	Arvore()
 	{
-		raiz = NULL;
+		raiz = nullptr;
 	}
 
-	void inserir(std::string chave, float f1)
+	void inserir(const std::string& chave, const vector<pair<string, float>>& dados)
 	{
-        raiz = inserir(raiz, chave, f1);
+        raiz = inserir(raiz, chave, dados);
 	}
     // insere recursivamente um novo no
-	No * inserir(No *no, std::string chave, float f1)
+	No * inserir(No *no, const std::string& chave, const vector<pair<string, float>>& dados)
 	{
-		if( no == NULL ){
+		if( no == nullptr ){
             //seta que alterou a subarvore e eh para testar o Fator de Balanceamento
             testaFB = 1;
-            return new No(chave, f1);
+            return new No(chave, dados);
 		}
 		// se for menor, entao insere a esquerda
 		if(chave < no->getChave())
 		{
             //percorre recursivamente a subarvore da esquerda
-            no->setEsq(inserir(no->getEsq(), chave, f1));
+            no->setEsq(inserir(no->getEsq(), chave, dados));
 
 			// testa o fator de  balanceamento apos a insercao na subarvore da esquerda
 			if( testaFB ){
@@ -106,7 +109,7 @@ class Arvore
 		else if(chave > no->getChave()){
 
             //percorre recursivamente a subarvore da direita
-            no->setDir(inserir(no->getDir(), chave, f1));
+            no->setDir(inserir(no->getDir(), chave, dados));
             // testa o fator de  balanceamento apos a insercao na subarvore da esquerda
 			if( testaFB ){
                 switch( no->getFB() ){
@@ -250,7 +253,7 @@ class Arvore
     }
     
     void getRaiz(){
-    	cout << "raiz = " << raiz->getF1() << endl;
+    	cout << "raiz = " << raiz->getChave() << endl;
 	}
 };
 
