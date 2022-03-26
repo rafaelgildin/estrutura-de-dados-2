@@ -1,3 +1,9 @@
+// TAD AVL
+// Andrea Mindlin Tessler - 42012538
+// GUSTAVO ANDRADE DE PAULA 42081327
+// Gustavo Bernard Schwarz 32141157
+// Rafael Avraham Gildin Acherboim 31940242
+
 #include "AVL.cpp"
 #include "LeitorCSV.h"
 #include <vector>
