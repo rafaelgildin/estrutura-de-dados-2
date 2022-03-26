@@ -67,13 +67,23 @@ int main(int argc, char *argv[])
 
         }
 
-    for(string alimento_informado : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvorez
+    for(string alimento_informado : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvore
                 arv.selecionarNo(alimento_informado);
                 cout << "\n" << "informacoes nutricionais da(o): " << arv.getSelecionado()->getChave() << "\n" << endl;
                 for(int j=0;j<(tabela[0].size())-1;j++){ //percorrer as colunas
                     cout << tabela[0][j+1] << ": " << arv.getSelecionado()->procurarDado(colunas[j]) << "\n" << endl;
                 }
             }
+
+    for(int j=0;j<(tabela[0].size())-1;j++){
+            float contador = 0;
+            cout << "\n" << "Relação Nutricional Completa: " << endl;
+            for(string alimento_informado : lista_alimentos){ //percorrer as colunas
+                arv.selecionarNo(alimento_informado);
+                contador = contador + arv.getSelecionado()->procurarDado(colunas[j]);
+            }
+            cout << tabela[0][j+1] << ": " << contador << "\n" << endl;
+    }
     //Selecionar nó com esse nome -> Todos nomes estão no vetor alimentos
     //arv.selecionarNo(alimentos[0]);
 
