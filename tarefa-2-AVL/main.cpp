@@ -1,23 +1,113 @@
-//
-// Created by gustavo on 23/03/2022.
-//
-
 #include "AVL.cpp"
 #include "LeitorCSV.h"
 #include <vector>
 #include <list>
 #include <algorithm>
+#include <tuple>
 
-int main(int argc, char *argv[])
-{
-    Arvore arv;
+// int main(int argc, char *argv[])
+// {
+//     ArvoreBST arv;
+//     int opcao, x;
+//     cout << ("\nTestando o TAD BST (Elementos do tipo int)\n");
 
-    vector<vector<string> > tabela;
+//     do
+//     {
+//         cout << "\n\n";
+//         cout << "\n***********************************";
+//         cout << "\n\tMenu - Arvore BST\n";
+//         cout << "\nEntre com a opcao:";
+//         cout << "\n ----1: Inserir";
+//         cout << "\n ----2: Excluir";
+//         cout << "\n ----3: Pesquisar";
+//         cout << "\n ----4: Imprimir em ordem";
+//         cout << "\n ----5: Qde de nos";
+//         cout << "\n ----6: Altura";
+//         cout << "\n ----7: Remover";
+//         cout << "\n ----8: Informacoes";
+//         cout << "\n ----9: Sair do programa\n";
+//         cout << "\n***********************************";
+//         cout << "\n-> ";
+//         cin >> opcao;
+//         switch(opcao)
+//         {
+//         case 1:
+//         {
+//             cout << "\n Informe o valor (int) -> ";
+//             cin >> x;
+//             arv.inserir(x);
+//             break;
+//         }
+//         case 2:
+//         {
+//             cout << "\n Ainda nao implementado! ";
+
+//             break;
+//         }
+//         case 3:
+//         {
+//             cout << "\n Informe o valor da chave (int) -> ";
+//             cin >> x;
+//             //No *ret = arv.Pesquisar(x,arv.getRaiz());
+//             No *ret = arv.PesquisarRec(arv.getRaiz(),x);
+//             if (ret == NULL)
+//             {
+//                 cout << "\n Chave nao encontrada! ";
+//             }
+//             else
+//             {
+//                 cout << "\n Chave encontrada! ";
+//             }
+//             break;
+//         }
+//         case 4:
+//         {
+//             cout << "Percorrendo em ordem...\n";
+//             arv.emOrdem(arv.getRaiz());
+//             break;
+//         }
+//         case 5:
+//         {
+//             cout << "Qde de nos: " << arv.contarNos(arv.getRaiz());
+//             break;
+//         }
+//         case 6:
+//         {
+//             cout << "Altura da Arvore: " << arv.altura(arv.getRaiz());
+//             break;
+//         }
+//         case 7:
+//         {
+//             cout << "\n Informe o valor (int) a ser removido -> ";
+//             cin >> x;
+//             bool resp = arv.remover(x);
+//             if (resp)
+//                 cout << "\n No removido!";
+//             else
+//                 cout << "\n No nao encontrado!";
+//             break;
+//         }
+//         case 8:
+//         {
+//             arv.infs();
+//             break;
+//         }
+//         default:
+//             if (opcao != 9)
+//                 cout << "\n Opcao invalida! \n\n\n";
+//         } // fim switch
+//     }
+//     while(opcao != 9);
+
+//     return 0;
+// }
+
+
+
+tuple < Arvore,vector<vector<string>>,vector<pair<string, float>>,vector<string>,vector<string> > inserirDadosArv(Arvore arv, 
+vector<vector<string>> tabela, vector<pair<string, float>> dados, vector<string> colunas, vector<string> alimentos){
+
     lerCSV("dados/dados_finais.csv", tabela);
-
-    vector<pair<string, float>> dados;
-    vector<string> colunas, alimentos;
-
     for(int j=1;j<tabela[0].size();j++)
     {
         //Pegar colunas disponíveis
@@ -40,15 +130,12 @@ int main(int argc, char *argv[])
         alimentos.emplace_back(tabela[i][0]);
         cout<<"\n";
     }
-
-    // percorre em ordem iniciando da raiz
-    cout << "\nPercorrendo em ordem crescrente...\n";
-    arv.emOrdem();
-    cout << "\nDenhando a arvore deitada...\n";
-    arv.DesenhaArvore();
+    return make_tuple(arv, tabela, dados, colunas, alimentos);
+}
 
 
 
+void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> colunas,vector<string> alimentos){
     std::string alimento_informado;
     list<string> lista_alimentos;
 
@@ -64,7 +151,6 @@ int main(int argc, char *argv[])
         }else{
             break;
         }
-
         }
 
     for(string alimento_informado : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvore
@@ -77,7 +163,7 @@ int main(int argc, char *argv[])
 
     for(int j=0;j<(tabela[0].size())-1;j++){
             float contador = 0;
-            cout << "\n" << "Relação Nutricional Completa: " << endl;
+            cout << "\n" << "Relacao Nutricional Completa: " << endl;
             for(string alimento_informado : lista_alimentos){ //percorrer as colunas
                 arv.selecionarNo(alimento_informado);
                 contador = contador + arv.getSelecionado()->procurarDado(colunas[j]);
@@ -92,5 +178,35 @@ int main(int argc, char *argv[])
 
     //Procurar algum dado do alimento -> Todos dados disponíveis estão no vetor colunas
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
+
+}
+
+
+
+
+
+
+int main(int argc, char *argv[])
+{
+    Arvore arv;
+    vector<vector<string>> tabela;
+    vector<pair<string, float>> dados;
+    vector<string> colunas, alimentos;
+    tie(arv, tabela, dados, colunas, alimentos) = inserirDadosArv(arv, tabela, dados, colunas, alimentos);
+    imprimeAlimentos( tabela, arv, colunas, alimentos);
+
+
+    // percorre em ordem iniciando da raiz
+    // cout << "\nPercorrendo em ordem crescrente...\n";
+    // arv.emOrdem();
+    // cout << "\nDenhando a arvore deitada...\n";
+    // arv.DesenhaArvore();
+
+
+
+
+
+
+
     return 0;
 }
