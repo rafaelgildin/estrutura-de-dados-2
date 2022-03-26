@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,6 +26,7 @@ class No
     std::string getChave()
 	{
 		return chave;
+
 	}
 
     float procurarDado(const string& coluna){
@@ -35,7 +37,7 @@ class No
         }
         cout << "Coluna não encontrada!" << endl;
     }
-	
+
 	const vector<pair<std::string, float>>& getDados(){
 		return dados;
 	}
@@ -60,7 +62,7 @@ class No
 	int getFB() const{
 	    return FB;
 	}
-	
+
 	//FatorB = R - L
     void setFB(int FatorB){
 	    this->FB = FatorB;
@@ -262,7 +264,7 @@ class Arvore
             DesenhaArvore(no->getEsq(), espacos + 4 );
         }
     }
-    
+
     void getRaiz(){
     	cout << "raiz = " << raiz->getChave() << endl;
 	}
@@ -276,7 +278,6 @@ class Arvore
         {
             selecionarNoRec(no->getEsq(), chave);
             if (no->getChave() == chave){
-                cout << "Alimento encontrado!" << endl;
                 selecionado = no;
             }
             selecionarNoRec(no->getDir(), chave);
@@ -284,7 +285,24 @@ class Arvore
     }
 
     No * getSelecionado(){
-        return selecionado;
+        if(selecionado != nullptr){
+         return selecionado;
+        }
+    }
+
+    string converterPalavra(string str){
+        int cont = 0;
+        transform(str.begin(),str.end(),str.begin(), ::tolower);
+        for (int i = 0; i < str.size(); i++){
+            if(cont == 0){
+                str[i] = toupper(str[i]);
+                cont++;
+                }else if(str[i]==' '){
+                    cont = 0;
+                }
+
+        }
+        return str;
     }
 
 
