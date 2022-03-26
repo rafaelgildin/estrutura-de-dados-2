@@ -5,6 +5,8 @@
 #include "AVL.cpp"
 #include "LeitorCSV.h"
 #include <vector>
+#include <list>
+#include <algorithm>
 
 int main(int argc, char *argv[])
 {
@@ -45,14 +47,40 @@ int main(int argc, char *argv[])
     cout << "\nDenhando a arvore deitada...\n";
     arv.DesenhaArvore();
 
+
+
+    std::string alimento_informado;
+    list<string> lista_alimentos;
+
+    while(true){   //Pegar a String informada, e colocar em uma lista
+        cout << "Insira o alimento consumido (Digite Sair quando tiver finalizado): ";
+        std::getline (std::cin, alimento_informado);
+        alimento_informado = arv.converterPalavra(alimento_informado);
+        if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
+            lista_alimentos.push_back(alimento_informado);
+            cout << "Alimento registrado" << endl;
+        }else if(alimento_informado != "Sair"){
+            cout << "Alimento nao presente na tabela, tente novamente" << endl;
+        }else{
+            break;
+        }
+
+        }
+
+    for(string alimento_informado : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvorez
+                arv.selecionarNo(alimento_informado);
+                cout << "\n" << "informacoes nutricionais da(o): " << arv.getSelecionado()->getChave() << "\n" << endl;
+                for(int j=0;j<(tabela[0].size())-1;j++){ //percorrer as colunas
+                    cout << tabela[0][j+1] << ": " << arv.getSelecionado()->procurarDado(colunas[j]) << "\n" << endl;
+                }
+            }
     //Selecionar nó com esse nome -> Todos nomes estão no vetor alimentos
-    arv.selecionarNo(alimentos[0]);
+    //arv.selecionarNo(alimentos[0]);
 
     //Printar chave do nó
-    cout << arv.getSelecionado()->getChave() << endl;
+    //cout << arv.getSelecionado()->getChave() << endl;
 
     //Procurar algum dado do alimento -> Todos dados disponíveis estão no vetor colunas
-    cout << arv.getSelecionado()->procurarDado(colunas[0]) << endl;
-
+    //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
     return 0;
 }
