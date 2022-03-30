@@ -265,10 +265,6 @@ class Arvore
         }
     }
 
-    void getRaiz(){
-    	cout << "raiz = " << raiz->getChave() << endl;
-	}
-
     void selecionarNo(const string& chave){
         selecionarNoRec(raiz, chave);
     }
@@ -308,5 +304,3 @@ class Arvore
 
 };
 
-// para visualizar a execucao acesse
-// https://pythontutor.com/cpp.html#mode=edit
