@@ -123,7 +123,8 @@ int main(int argc, char *argv[])
         cout << "\n ----2: Pesquisar Alimentos Consumidos";
         cout << "\n ----3: Percorrer em Ordem Crescente";
         cout << "\n ----4: Desenhar a arvore deitada";
-        cout << "\n ----5: Sair do programa\n";
+        cout << "\n ----5: Remover Alimento";
+        cout << "\n ----6: Sair do programa\n";
         cout << "\n***********************************";
         cout << "\n-> ";
         cin >> opcao;
@@ -152,12 +153,17 @@ int main(int argc, char *argv[])
             arv.DesenhaArvore();
             break;
         }
+        case 5:
+        {
+            cout << "\nImplementar o metodo remover...\n";;
+            break;
+        }
         default:
-            if (opcao != 5)
+            if (opcao != 6)
                 cout << "\n Opcao invalida! \n\n\n";
         } // fim switch
     }
-    while(opcao != 5);
+    while(opcao != 6);
     return 0;
 }
 
