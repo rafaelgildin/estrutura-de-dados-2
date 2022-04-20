@@ -1,0 +1,10 @@
+*.exe
+*.dev
+*.layout
+*.win
+*.o
+*.txt
+*.pdf
+.ipynb_checkpoints
+.vscode
+extras
