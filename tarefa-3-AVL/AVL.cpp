@@ -72,16 +72,26 @@ class No
 class Arvore
 {
     private:
-	No *raiz;
+    No *raiz;
     No *selecionado = nullptr;
-
-	int testaFB{};
+	int testaFB;
 
     public:
 	Arvore()
 	{
 		raiz = nullptr;
 	}
+
+    //--------------------------------testes
+    std::string getChaveRaiz(){
+        return raiz->getChave();
+    }
+
+    void remover(){
+        // -----------continuar 
+        cout << raiz->getFB() << endl;
+        cout << "implementando remover" << endl;
+    }
 
 	void inserir(const std::string& chave, const vector<pair<string, float>>& dados)
 	{
@@ -300,6 +310,9 @@ class Arvore
         }
         return str;
     }
+
+
+    
 
 
 };

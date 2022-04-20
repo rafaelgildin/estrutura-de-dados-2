@@ -110,6 +110,7 @@ int main(int argc, char *argv[])
     vector<pair<string, float>> dados;
     vector<string> colunas, alimentos;
     tie(arv, tabela, dados, colunas, alimentos) = inserirDadosArv(arv, tabela, dados, colunas, alimentos);
+    cout << "raiz = " << arv.getChaveRaiz() << endl;
 
     int opcao, x;
     cout << ("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTestando o TAD AVL\n");
@@ -155,7 +156,8 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            cout << "\nImplementar o metodo remover...\n";;
+            cout << "\nImplementar o metodo remover...\n";
+            arv.remover();
             break;
         }
         default:
