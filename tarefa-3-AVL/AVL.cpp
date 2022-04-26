@@ -2,6 +2,7 @@
 #include <utility>
 #include <vector>
 #include <algorithm> 
+#include <fstream>
 
 using namespace std;
 
@@ -301,6 +302,53 @@ class Arvore
         return str;
     }
 
+	void escreverCSV(vector<vector<string> >& tabela){
+		for (auto & i : tabela){
+			for (auto & y : i){
+				cout << y << endl;
+			}
+		}
+	}
+
+	void escreverCSV(){
+		std::ofstream myfile;
+		myfile.open ("saida.csv");
+
+		myfile << "food_and_serving";
+		myfile << ", ";
+		for (auto& i : raiz->getDados()){
+				myfile << i.first;
+				myfile << ", ";
+		}
+		myfile << "\n";
+		
+		percorrer(raiz, myfile);
+		myfile.close();
+
+		cout << "Arquivo saida.csv escrito com sucesso." << endl;
+    }
+    // polimorfismo de sobrecarga
+	void percorrer(No* no, std::ofstream& myfile)
+	{
+		if(no != NULL)
+		{
+			percorrer(no->getEsq(), myfile);
+			//cout << no->getChave() << " ";
+			string chave = no->getChave();
+
+			myfile << chave;
+			myfile << ", ";
+			
+			for (auto& i : no->getDados()){
+				myfile << i.second;
+				myfile << ", ";
+			}
+
+			myfile << "\n";
+			
+			percorrer(no->getDir(), myfile);
+		}
+	}
 
 };
 
