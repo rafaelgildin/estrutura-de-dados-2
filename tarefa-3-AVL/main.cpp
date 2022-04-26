@@ -124,7 +124,8 @@ int main(int argc, char *argv[])
         cout << "\n ----3: Percorrer em Ordem Crescente";
         cout << "\n ----4: Desenhar a arvore deitada";
         cout << "\n ----5: Remover Alimento";
-        cout << "\n ----6: Sair do programa\n";
+		cout << "\n ----6: Salvar arvore em arquivo";
+        cout << "\n ----7: Sair do programa\n";
         cout << "\n***********************************";
         cout << "\n-> ";
         cin >> opcao;
@@ -158,12 +159,17 @@ int main(int argc, char *argv[])
             cout << "\nImplementar o metodo remover...\n";;
             break;
         }
+		case 6:
+        {
+            arv.escreverCSV();
+            break;
+        }
         default:
-            if (opcao != 6)
+            if (opcao != 7)
                 cout << "\n Opcao invalida! \n\n\n";
         } // fim switch
     }
-    while(opcao != 6);
+    while(opcao != 7);
     return 0;
 }
 
