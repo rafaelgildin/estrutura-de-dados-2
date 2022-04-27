@@ -271,7 +271,7 @@ int ArvoreBST::RemoverNo(No* atual, int dado){
 			noRemover = NULL;
 			delete noRemover;
 		}
-		//no com 2 filhos -> caso 5    
+		//no com 2 filhos -> caso 5
 		if(qFilhos == 2){
 			cout << "no com 2 filhos" << endl;
 			int i,valor, qNos = contarNos(noRemover), q=0;
@@ -281,9 +281,9 @@ int ArvoreBST::RemoverNo(No* atual, int dado){
 
 			//se tiver noPai apontar para NULL no lado do noRemover
 			if(noPai != NULL){
-				if(noRemover == noPai->getDir())
+				if(noRemover == noPai->getDir())//excluir o filho dir
 					noPai->setDir(NULL);
-				if(noRemover == noPai->getEsq())
+				if(noRemover == noPai->getEsq())//excluir o filho esq
 					noPai->setEsq(NULL);
 			}
 			//colocar noFilhoDir como raiz, se noRemover for raiz
@@ -304,7 +304,7 @@ int ArvoreBST::RemoverNo(No* atual, int dado){
 			delete noRemover;
 		}
      	cout << "qPai=" << qPai << "  qFilhos=" << qFilhos << endl;
-		cout << "Fim fa funcao RemoverNo" << endl;
+		cout << "Fim da funcao RemoverNo" << endl;
      	return -1;
 
     }

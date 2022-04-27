@@ -47,7 +47,8 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
     while(true){   //Pegar a String informada, e colocar em uma lista
         cout << "Insira o alimento consumido: ";
         cin >> alimento_informado;
-        alimento_informado = arv.converterPalavra(alimento_informado);
+        alimento_informado = arv.converterPalavra(alimento_informado);//aliemento -> Alimento
+        // cout << "alimento informado = " << alimento_informado << endl;
         if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
@@ -102,6 +103,28 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
 }
 
+int BuscarAliemento(vector<vector<string>> tabela, Arvore arv, vector<string> colunas,vector<string> alimentos){
+    // ---------------------------------------------continuar 
+    // verificar se tem alimento na arvore
+    std::string alimento_informado;
+    //Pegar a String informada, e colocar em uma lista
+    cout << "Insira o alimento consumido: ";
+    cin >> alimento_informado;
+    // alimento_informado = arv.converterPalavra(alimento_informado);//aliemento -> Alimento
+    cout << "alimento informado = " << alimento_informado << endl;
+    // if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){//buscar alimento na lista de alimentos
+    //     cout << "Alimento encontrado: " << alimento_informado << endl;
+    //     arv.selecionarNo(alimento_informado);
+    //     // cout << "\n" << "informacoes nutricionais da(o): " << arv.getSelecionado()->getChave() << "\n" << endl;
+    //     // cout << "\n chave = " << arv.getSelecionado()->chave << ", no = " <<  arv.getSelecionado() << endl;
+    //     // arv.remover(alimento_informado);//remover o no
+    // }
+    // else{
+    //     cout << "Alimento nao presente na tabela, tente novamente" << endl;
+    // }
+    return 0;
+}
+
 
 int main(int argc, char *argv[])
 {
@@ -110,7 +133,7 @@ int main(int argc, char *argv[])
     vector<pair<string, float>> dados;
     vector<string> colunas, alimentos;
     tie(arv, tabela, dados, colunas, alimentos) = inserirDadosArv(arv, tabela, dados, colunas, alimentos);
-    cout << "raiz = " << arv.getChaveRaiz() << endl;
+    cout << "raiz = " << arv.raiz->chave << endl;
 
     int opcao, x;
     cout << ("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTestando o TAD AVL\n");
@@ -156,8 +179,10 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            cout << "\nImplementar o metodo remover...\n";
-            arv.remover();
+            int dado;
+            cout << "\nMetodo remover...\n";
+            // dado = BuscarAliemento( tabela, arv, colunas, alimentos);
+            // arv.remover();
             break;
         }
         default:

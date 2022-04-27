@@ -16,7 +16,7 @@ public:
         dir = NULL;
     }
 
-    // funções getters e setters
+    // funï¿½ï¿½es getters e setters
     int getChave()
     {
         return chave;
@@ -57,46 +57,46 @@ public:
 
     void inserir(int chave)
     {
-        if(raiz == NULL) // verifica se a árvore está vazia
-            raiz = new No(chave); // cria um novo nó
+        if(raiz == NULL) // verifica se a ï¿½rvore estï¿½ vazia
+            raiz = new No(chave); // cria um novo nï¿½
         else
             inserirAux(raiz, chave);
     }
 
     void inserirAux(No *no, int chave)
     {
-        // se for menor, então insere à esquerda
+        // se for menor, entï¿½o insere ï¿½ esquerda
         if(chave < no->getChave())
         {
-            // verifica se a esquerda é nulo
+            // verifica se a esquerda ï¿½ nulo
             if(no->getEsq() == NULL)
             {
                 No *novo_no = new No(chave);
-                no->setEsq(novo_no); // seta o novo_no à esquerda
+                no->setEsq(novo_no); // seta o novo_no ï¿½ esquerda
             }
             else
             {
-                // senão, continua percorrendo recursivamente
+                // senï¿½o, continua percorrendo recursivamente
                 inserirAux(no->getEsq(), chave);
             }
         }
-        // se for maior, então insere à direita
+        // se for maior, entï¿½o insere ï¿½ direita
         else if(chave > no->getChave())
         {
-            // verifica se a direita é nulo
+            // verifica se a direita ï¿½ nulo
             if(no->getDir() == NULL)
             {
                 No *novo_no = new No(chave);
-                no->setDir(novo_no); // seta o novo_no à direita
+                no->setDir(novo_no); // seta o novo_no ï¿½ direita
             }
             else
             {
-                // senão, continua percorrendo recursivamente
+                // senï¿½o, continua percorrendo recursivamente
                 inserirAux(no->getDir(), chave);
             }
         }
-        // se for igual, não vai inserir
-        // não pode existir 2 chaves iguais
+        // se for igual, nï¿½o vai inserir
+        // nï¿½o pode existir 2 chaves iguais
     }
 
     No* getRaiz()
@@ -273,7 +273,7 @@ public:
             sucessor = atual;
             atual = atual->getEsq(); // caminha para a esquerda
         }
-        // *********************************************************************************
+        // *********************************************************************************          continuar
         // quando sair do while "sucessor" sera o no mais a esquerda da subarvore a direita
         // "paidosucessor" sera o pai de sucessor e "apaga" o no que devera ser eliminado
         // *********************************************************************************

@@ -1,8 +1,3 @@
-// GUSTAVO ANDRADE DE PAULA 42081327
-// Gustavo Bernard Schwarz 32141157
-// Rafael Avraham Gildin Acherboim 31940242
-// Andrea Mindlin Tessler - 42012538
-
 #ifndef ESTRUTURA_ARVOREBST_H
 #define ESTRUTURA_ARVOREBST_H
 

@@ -2,6 +2,8 @@
 // Gustavo Bernard Schwarz 32141157
 // Rafael Avraham Gildin Acherboim 31940242
 // Andrea Mindlin Tessler - 42012538
+// clear; g++ -o main.exe *.cpp;  .\main.exe
+
 
 #include <iostream>
 #include "No.h"
@@ -51,8 +53,7 @@ int main(int argc, char *argv[])
 		      cout << "\n Informe o valor da chave (int) -> ";
 		      cin >> x;
 		      //No *ret = arv.Pesquisar(x,arv.getRaiz());
-		      No *ret = 
-arv.PesquisarRec(arv.getRaiz(),x);
+		      No *ret = arv.PesquisarRec(arv.getRaiz(),x);
 		      if (ret == NULL){
 		       	  cout << "\n Chave nao encontrada! ";
           }else{
