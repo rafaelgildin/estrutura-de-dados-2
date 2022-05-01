@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            cout << "\nImplementar o metodo remover...\n";;
+            cout << "\nImplementar o metodo remover...\n";
             break;
         }
 		case 6:
