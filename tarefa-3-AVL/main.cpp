@@ -48,6 +48,7 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
         cout << "Insira o alimento consumido: ";
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
+
         if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;

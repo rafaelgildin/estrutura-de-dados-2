@@ -292,7 +292,6 @@ class Arvore
         transform(str.begin(),str.end(),str.begin(), ::tolower);
         for (int i = 0; i < str.size(); i++){
             if(cont == 0){
-                str[i] = toupper(str[i]);
                 cont++;
                 }else if(str[i]==' '){
                     cont = 0;
