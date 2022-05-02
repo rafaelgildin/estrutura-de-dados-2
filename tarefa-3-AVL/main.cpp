@@ -57,8 +57,8 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
             cout << "Alimento nao presente na tabela, tente novamente" << endl;
         }
     }
-    for(string alimento_informado : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvore
-                arv.selecionarNo(alimento_informado);
+    for(const string& alimento : lista_alimentos){ //Percorrer a lista de alimentos e procurar um a um na árvore
+                arv.selecionarNo(alimento);
                 cout << "\n" << "informacoes nutricionais da(o): " << arv.getSelecionado()->getChave() << "\n" << endl;
                 for(int j=0;j<(tabela[0].size())-1;j++){ //percorrer as colunas
                     cout << tabela[0][j+1] << ": " << arv.getSelecionado()->procurarDado(colunas[j]) << endl;
@@ -71,14 +71,16 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     std::string alimento_informado;
     list<string> lista_alimentos;
     while(true){   //Pegar a String informada, e colocar em uma lista
-        cout << "Insira o alimento consumido (Digite Sair quando tiver finalizado): ";
+        cout << "Insira o alimento consumido (Digite 'sair' quando tiver finalizado): ";
         cin >> alimento_informado;
-        // std::getline (std::cin, alimento_informado);
+
         alimento_informado = arv.converterPalavra(alimento_informado);
+        cout << alimento_informado << endl;
+
         if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
-        }else if(alimento_informado != "Sair"){
+        }else if(alimento_informado != "sair"){
             cout << "Alimento nao presente na tabela, tente novamente" << endl;
         }else{
             break;
@@ -89,8 +91,8 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     for(int j=0;j<(tabela[0].size())-1;j++){
             float contador = 0;
             
-            for(string alimento_informado : lista_alimentos){ //percorrer as colunas
-                arv.selecionarNo(alimento_informado);
+            for(const string& alimento : lista_alimentos){ //percorrer as colunas
+                arv.selecionarNo(alimento);
                 contador = contador + arv.getSelecionado()->procurarDado(colunas[j]);
             }
             cout << tabela[0][j+1] << ": " << contador << endl;

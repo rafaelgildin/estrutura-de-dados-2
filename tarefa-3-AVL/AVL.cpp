@@ -241,7 +241,7 @@ class Arvore
     // polimorfismo de sobrecarga
 	void emOrdem(No* no)
 	{
-		if(no != NULL)
+		if(no != nullptr)
 		{
 			emOrdem(no->getEsq());
 			cout << no->getChave() << " ";
@@ -253,7 +253,7 @@ class Arvore
 	}
 	void DesenhaArvore(No* no, int espacos )
     {
-        if(no != NULL)
+        if(no != nullptr)
 		{
             DesenhaArvore(no->getDir(), espacos + 4 );
 
@@ -290,10 +290,10 @@ class Arvore
     string converterPalavra(string str){
         int cont = 0;
         transform(str.begin(),str.end(),str.begin(), ::tolower);
-        for (int i = 0; i < str.size(); i++){
+        for (char & i : str){
             if(cont == 0){
                 cont++;
-                }else if(str[i]==' '){
+                }else if(i==' '){
                     cont = 0;
                 }
 
