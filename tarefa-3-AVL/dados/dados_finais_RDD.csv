@@ -1,4 +1,5 @@
 food_and_serving,calories,caloriesefrom_fat,total_fat_g,total_fat_dv,sodium_g,sodium_dv,potassium_g,potassium_dv,total_carbo_hydrate_g,total_carbo_hydrate_dv,dietary_fiber_g,dietary_fiber_dv,sugars_g,protein_g,vitamin_a_dv,vitamin_c_dv,calcium_dv,eeironee_dv,saturated_fat_dv,saturated_fat_mg_e,chole_sterol_dv,chole_sterol_mg_e
+carrot,30.0,0.0,0.0,0.0,60.0,3.0,250.0,7.0,7.0,2.0,2.0,8.0,5.0,1.0,110.0,10.0,2.0,2.0,0.0,0.0,0.0,0.0
 asparagus,20.0,0.0,0.0,0.0,0.0,0.0,230.0,7.0,4.0,1.0,2.0,8.0,2.0,2.0,10.0,15.0,2.0,2.0,0.0,0.0,0.0,0.0
+radishes,10.0,0.0,0.0,0.0,55.0,2.0,190.0,5.0,3.0,1.0,1.0,4.0,2.0,0.0,0.0,30.0,2.0,2.0,0.0,0.0,0.0,0.0
 bellpepper,25.0,0.0,0.0,0.0,40.0,2.0,220.0,6.0,6.0,2.0,2.0,8.0,4.0,1.0,4.0,190.0,2.0,4.0,0.0,0.0,0.0,0.0
-broccoli,45.0,0.0,0.5,1.0,80.0,3.0,460.0,13.0,8.0,3.0,3.0,12.0,2.0,4.0,6.0,220.0,6.0,6.0,0.0,0.0,0.0,0.0

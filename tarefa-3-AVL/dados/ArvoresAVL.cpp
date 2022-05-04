@@ -57,13 +57,11 @@ class Arvore
     public:
 	No *raiz;
     No *noDesbalanceado;
-    No *noPaiDesbalanceado;//novo
 	int testaFB;
 	Arvore()
 	{
 		raiz = NULL;
         noDesbalanceado = NULL;
-        noPaiDesbalanceado=NULL;//novo
 	}
 
     int contarNos(No* atual){
@@ -144,7 +142,6 @@ class Arvore
     return atual; //encontrou o dado
   }
 
-
     void Balancear(void){
         /* Balancear a arvore
         nosPtr: vetor com os ponteiros da arvore
@@ -167,7 +164,6 @@ class Arvore
                 if(abs(FB) == 2){
                     // cout << "no desbalanceado = " << " i = " << i << endl;
                     noDesbalanceado = nosPtr[i];
-                    noPaiDesbalanceado = PesquisarPai(noDesbalanceado->chave, raiz);
                     cout << "no desbalanceado = " << noDesbalanceado->chave << endl;
                 }
             }
@@ -176,7 +172,6 @@ class Arvore
                 No * filhoDir = noDesbalanceado->dir;
                 No * filhoEsq = noDesbalanceado->esq;
                 No * p = noDesbalanceado;
-                No * pai = noPaiDesbalanceado;
                 // cout << "pai desbalanceado = " << pai->chave << endl;
                 
                 // cout << "\n\np = " << p->chave << endl;
@@ -203,7 +198,6 @@ class Arvore
                     // cout << "u = " << u->chave << endl;
                     if(filhoEsq->FB > 0){
                         No * v = u->dir;
-                        cout << "executa RotacaoDuplaDireita " << endl;
                         RotacaoDuplaDireita(p,u,v);
                     }
                     else{
@@ -212,7 +206,6 @@ class Arvore
                 }
                 
                 noDesbalanceado =  NULL;
-                noPaiDesbalanceado =  NULL;
             }
             else 
                 break;
@@ -486,7 +479,9 @@ class Arvore
 
     void RotacaoSimplesDireita(No*& p, No*& u){//passar ponteiro por referencia
         No * pPai = PesquisarPai(p->chave, raiz);
-        bool pFilhoEsq = pPai->esq == p; // p eh filho esq?     
+        bool pFilhoEsq;
+        if (pPai != NULL)
+            pFilhoEsq = pPai->esq == p; // p eh filho esq?     
         
         p->setEsq(u->getDir());
         u->setDir(p);
@@ -508,7 +503,9 @@ class Arvore
 
     void RotacaoDuplaDireita(No*& p, No*& u, No*& v){
         No * pPai = PesquisarPai(p->chave, raiz);
-        bool pFilhoEsq = pPai->esq == p; // p eh filho esq?   
+        bool pFilhoEsq;
+        if (pPai != NULL)
+            pFilhoEsq = pPai->esq == p; // p eh filho esq?
         
         v = u->getDir(); // aqui poderia ser o q caso T2 e T3 sejam nulos
         u->setDir(v->getEsq());
@@ -541,7 +538,9 @@ class Arvore
 
     void RotacaoSimplesEsquerda(No*& p, No*& z){
         No * pPai = PesquisarPai(p->chave, raiz);
-        bool pFilhoEsq = pPai->esq == p; // p eh filho esq?
+        bool pFilhoEsq;
+        if (pPai != NULL)
+            pFilhoEsq = pPai->esq == p; // p eh filho esq?
         
         // cout << "\n\n\ndesenha arvore " << endl;DesenhaArvore();
         // cout << "p = " << p->chave << "   z = " << z->chave << endl;
@@ -566,7 +565,9 @@ class Arvore
 
     void RotacaoDuplaEsquerda(No*& p, No*& z, No*& y){
         No * pPai = PesquisarPai(p->chave, raiz);
-        bool pFilhoEsq = pPai->esq == p; // p eh filho esq?           
+        bool pFilhoEsq = NULL;
+        if(pPai != NULL)
+            pFilhoEsq = pPai->esq == p; // p eh filho esq?           
 
         // y = z->getEsq();
         z->setEsq(y->getDir());
@@ -639,7 +640,11 @@ int main(int argc, char *argv[])
 	Arvore arv;
 	// TESTES do remover sem pai
     // 1) RSE ok
-    // arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.inserir(70); arv.remover(40);
+    // arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.inserir(70);
+    // cout << "apos inserir" << endl; arv.DesenhaArvore();
+    // arv.remover(40);
+    // cout << "\n\n\n\nDenhando a arvore deitada depois de balancear...\n"; arv.DesenhaArvore();
+
     // 2) RDE ok
     //  arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.remover(40); 
     // 3) RSD ok
@@ -668,6 +673,7 @@ int main(int argc, char *argv[])
     arv.remover(55);
     cout << "\n\n\n\nDenhando a arvore deitada depois de balancear...\n"; arv.DesenhaArvore();
     */
+
 
     /**********************************
     2) RDE ok -> remove(55)
@@ -726,8 +732,5 @@ int main(int argc, char *argv[])
     arv.remover(45);
     cout << "\n\n\n\nDenhando a arvore deitada depois de balancear...\n"; arv.DesenhaArvore();
     */
-
-
-
 	return 0;
 }
