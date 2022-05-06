@@ -657,6 +657,7 @@ class Arvore
         if(selecionado != nullptr){
          return selecionado;
         }
+      return nullptr;
     }
 
     string converterPalavra(string str){
