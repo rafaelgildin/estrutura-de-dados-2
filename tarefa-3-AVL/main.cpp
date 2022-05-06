@@ -47,7 +47,8 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
         cout << "Insira o alimento consumido: ";
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
-        if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
+        arv.selecionarNo(alimento_informado);
+        if(arv.getSelecionado() !=NULL){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
             break;
@@ -72,10 +73,11 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
         cin >> alimento_informado;
         // std::getline (std::cin, alimento_informado);
         alimento_informado = arv.converterPalavra(alimento_informado);
-        if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
+        arv.selecionarNo(alimento_informado);
+        if(arv.getSelecionado() !=NULL && alimento_informado != "sair"){            
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
-        }else if(alimento_informado != "Sair"){
+        }else if(alimento_informado != "sair"){
             cout << "Alimento nao presente na tabela, tente novamente" << endl;
         }else{
             break;
@@ -100,16 +102,17 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
 }
 
-void remove1Alimento(vector<vector<string>> &tabela, Arvore &arv, vector<string> &colunas,vector<string> &alimentos){
+void remove1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> colunas,vector<string> alimentos){
     std::string alimento_informado;
     list<string> lista_alimentos;
     while(true){   //Pegar a String informada, e colocar em uma lista
         cout << "Insira o alimento consumido: ";
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
-        if(std::count(alimentos.begin(),alimentos.end(),alimento_informado)){
+        arv.selecionarNo(alimento_informado);
+        if(arv.getSelecionado() !=NULL){
             lista_alimentos.push_back(alimento_informado);
-            cout << "Alimento encontrado = " << alimento_informado << endl;
+            cout << "Alimento encontrado = " << arv.getSelecionado()->getChave() << endl;
             break;
         }else{
             cout << "Alimento nao presente na tabela, tente novamente" << endl;
