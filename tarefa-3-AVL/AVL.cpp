@@ -394,9 +394,9 @@ class Arvore
         bool pFilhoEsq;
         if (pPai != NULL)
             pFilhoEsq = pPai->esq == p; // p eh filho esq?
-        
         // cout << "\n\n\ndesenha arvore " << endl;DesenhaArvore();
         // cout << "p = " << p->chave << "   z = " << z->chave << endl;
+        // cout << "pFilhoEsq = " << pFilhoEsq << endl;
         // cout << "z.esq = " << z->getEsq()->chave << "   z.dir = " << z->getDir()->chave << endl;
 
         p->setDir(z->getEsq());
@@ -406,9 +406,11 @@ class Arvore
         p->setFB(0);
         // p = z;//?
         cout << " => realizada uma rotacao simples a esquerda \n";
-        if(raiz == p)
+        if(raiz == p){
             raiz = z;
+        }
         else{//p nao eh raiz
+            cout << "entra no else" << endl;
             if(pFilhoEsq)
                 pPai->esq = z;
             else

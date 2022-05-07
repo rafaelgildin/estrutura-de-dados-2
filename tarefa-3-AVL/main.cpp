@@ -14,7 +14,7 @@
 tuple < Arvore,vector<vector<string>>,vector<pair<string, float>>,vector<string>,vector<string> > inserirDadosArv(Arvore arv, 
 vector<vector<string>> tabela, vector<pair<string, float>> dados, vector<string> colunas, vector<string> alimentos){
 
-    lerCSV("dados/dados_finais_completo.csv", tabela);
+    lerCSV("dados/sem-pai/dados_finais_RDD.csv", tabela);
     for(int j=1;j<tabela[0].size();j++)
     {
         //Pegar colunas disponíveis
@@ -102,16 +102,14 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
 }
 
-void remove1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> colunas,vector<string> alimentos){
+void remove1Alimento(Arvore &arv){
     std::string alimento_informado;
-    list<string> lista_alimentos;
-    while(true){   //Pegar a String informada, e colocar em uma lista
+    while(true){
         cout << "Insira o alimento consumido: ";
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
         arv.selecionarNo(alimento_informado);
         if(arv.getSelecionado() !=NULL){
-            lista_alimentos.push_back(alimento_informado);
             cout << "Alimento encontrado = " << arv.getSelecionado()->getChave() << endl;
             break;
         }else{
@@ -178,8 +176,9 @@ int main(int argc, char *argv[])
         }
         case 5:
         {
-            remove1Alimento( tabela, arv, colunas, alimentos);
-            arv.DesenhaArvore();
+            remove1Alimento(arv);
+            // arv.DesenhaArvore();
+            // cout << "raiz = " << arv.raiz->chave << endl;
             break;
         }
 		case 6:

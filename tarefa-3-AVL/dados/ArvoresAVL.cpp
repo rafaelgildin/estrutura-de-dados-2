@@ -481,7 +481,7 @@ class Arvore
         No * pPai = PesquisarPai(p->chave, raiz);
         bool pFilhoEsq;
         if (pPai != NULL)
-            pFilhoEsq = pPai->esq == p; // p eh filho esq?     
+            pFilhoEsq = pPai->esq == p; // p eh filho esq?
         
         p->setEsq(u->getDir());
         u->setDir(p);
@@ -640,10 +640,10 @@ int main(int argc, char *argv[])
 	Arvore arv;
 	// TESTES do remover sem pai
     // 1) RSE ok
-    // arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.inserir(70);
-    // cout << "apos inserir" << endl; arv.DesenhaArvore();
-    // arv.remover(40);
-    // cout << "\n\n\n\nDenhando a arvore deitada depois de balancear...\n"; arv.DesenhaArvore();
+    arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.inserir(70);
+    cout << "apos inserir" << endl; arv.DesenhaArvore();
+    arv.remover(40);
+    cout << "\n\n\n\nDenhando a arvore deitada depois de balancear...\n"; arv.DesenhaArvore();
 
     // 2) RDE ok
     //  arv.inserir(50); arv.inserir(40); arv.inserir(60);arv.inserir(55);arv.remover(40); 
