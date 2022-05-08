@@ -14,7 +14,7 @@
 tuple < Arvore,vector<vector<string>>,vector<pair<string, float>>,vector<string>,vector<string> > inserirDadosArv(Arvore arv, 
 vector<vector<string>> tabela, vector<pair<string, float>> dados, vector<string> colunas, vector<string> alimentos){
 
-    lerCSV("dados/sem-pai/dados_finais_RDD.csv", tabela);
+    lerCSV("dados/dados_finais.csv", tabela);
     for(int j=1;j<tabela[0].size();j++)
     {
         //Pegar colunas disponíveis
