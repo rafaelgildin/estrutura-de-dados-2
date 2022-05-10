@@ -227,7 +227,7 @@ class Arvore
         }
     }
 
-    bool remover(std::string v)//ok
+    bool remover(const std::string& v)//ok
     {
         if (raiz == nullptr) return false; //arvore esta vazia
 

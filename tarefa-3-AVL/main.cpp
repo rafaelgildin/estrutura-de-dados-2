@@ -102,7 +102,7 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
 }
 
-void remove1Alimento(Arvore &arv){
+void remove1Alimento(Arvore arv){
     std::string alimento_informado;
     while(true){
         cout << "Insira o alimento a ser removido: ";
