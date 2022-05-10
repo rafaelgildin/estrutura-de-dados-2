@@ -19,36 +19,36 @@ class No
 	{
 		this->chave = std::move(chave);
 		this->dados = std::move(dados);
-		esq = NULL;
+		esq = nullptr;
 		dir = NULL;
 		FB=0;
 	}
 
-    std::string getChave()
+    std::string getChave() const
 	{
 		return chave;
 
 	}
 
     float procurarDado(const string& coluna){
-        for (int i=0;i<dados.size();i++){
-            if (coluna == dados[i].first){
-                return dados[i].second;
+        for (auto & dado : dados){
+            if (coluna == dado.first){
+                return dado.second;
             }
         }
         cout << "Coluna não encontrada!" << endl;
     }
 
-	const vector<pair<std::string, float>>& getDados(){
+	const vector<pair<std::string, float>>& getDados() const{
 		return dados;
 	}
 
 	// funcoes getters e setters
-	No* getEsq()
+	No* getEsq() const
 	{
 		return esq;
 	}
-	No* getDir()
+	No* getDir() const
 	{
 		return dir;
 	}
@@ -75,35 +75,35 @@ class Arvore
     private:
     public:
     No *raiz;
-    No *selecionado = NULL;
+    No *selecionado = nullptr;
     No *noDesbalanceado;
-	int testaFB;
+	int testaFB{};
 	Arvore()
 	{
-		raiz = NULL;
-        noDesbalanceado = NULL;
+		raiz = nullptr;
+        noDesbalanceado = nullptr;
 	}
 
     //ok
     int contarNos(No* atual){
-    if(atual == NULL)  return 0;
+    if(atual == nullptr)  return 0;
     else return ( 1 + contarNos(atual->getEsq()) + contarNos(atual->getDir()));
     }
     //ok
     int CalcularFB(No * no)
     {
-        if(no == NULL)
+        if(no == nullptr)
             return 0;
         return altura(no->dir) - altura(no->esq);
     }
     //ok
     int altura(No* atual)
     {
-        if(atual == NULL)
+        if(atual == nullptr)
             return -1;
         else
         {
-            if(atual->getEsq() == NULL && atual->getDir() == NULL)
+            if(atual->getEsq() == nullptr && atual->getDir() == nullptr)
                 return 0;
             else
             {
@@ -135,34 +135,34 @@ class Arvore
             }
         }
 
-    No* PesquisarPai(std::string dado, No* no){ // ok
+    No* PesquisarPai(const std::string& dado, No* no) const{ // ok
   	/*
 		retorna o pai de um nó.
 		OBS: colocar apenas nó com pai
   	*/
-    if (raiz == NULL) return NULL; //arvore vazia
-    if (no->getChave() == dado) return NULL; //arvore com 1 folha, sem pai
+    if (raiz == nullptr) return nullptr; //arvore vazia
+    if (no->getChave() == dado) return nullptr; //arvore com 1 folha, sem pai
     No* atual = no;  // cria ptr aux (atual) e comeca a procurar
-    No* noFilhoDir = NULL;
-    No* noFilhoEsq = NULL;
+    No* noFilhoDir = nullptr;
+    No* noFilhoEsq = nullptr;
     while (true) {
-	  if(atual->getDir() != NULL)// verificar se tem chave na direita
+	  if(atual->getDir() != nullptr)// verificar se tem chave na direita
 			if(atual->getDir()->getChave() == dado) //verifica se é o dado
 				return atual;
-	  if(atual->getEsq() != NULL)// verificar se tem chave na esquerda
+	  if(atual->getEsq() != nullptr)// verificar se tem chave na esquerda
 			if(atual->getEsq()->getChave() == dado) //verifica se é o dado
 				return atual;
       if(dado < atual->getChave() )
 	  	atual = atual->getEsq(); // caminha para esquerda
       else
 	  	atual = atual->getDir(); // caminha para direita
-      if (atual == NULL)
-	  	return NULL; // encontrou uma folha e nao encontrou a chave
+      if (atual == nullptr)
+	  	return nullptr; // encontrou uma folha e nao encontrou a chave
     }
     return atual; //encontrou o dado
   }
 
-    void Balancear(void){
+    void Balancear(){
         /* Balancear a arvore
         nosPtr: vetor com os ponteiros da arvore
         nosChaves: vetor com as chaves da arvore
@@ -188,7 +188,7 @@ class Arvore
                     cout << "no desbalanceado = " << noDesbalanceado->chave << endl;
                 }
             }          
-            if(noDesbalanceado != NULL){
+            if(noDesbalanceado != nullptr){
                 No * filhoDir = noDesbalanceado->dir;
                 No * filhoEsq = noDesbalanceado->esq;
                 No * p = noDesbalanceado;
@@ -220,7 +220,7 @@ class Arvore
                         RotacaoSimplesDireita(p,u);
                     }
                 }
-                noDesbalanceado =  NULL;
+                noDesbalanceado =  nullptr;
             }
             else 
                 break;
@@ -229,7 +229,7 @@ class Arvore
 
     bool remover(std::string v)//ok
     {
-        if (raiz == NULL) return false; //arvore esta vazia
+        if (raiz == nullptr) return false; //arvore esta vazia
 
         No *atual = raiz;
         No *pai = raiz;
@@ -249,7 +249,7 @@ class Arvore
                 atual = atual->getDir();
                 filho_esq = false; //filho a esquerda? NAO
             }
-            if (atual == NULL) return false; // encontrou uma folha E nao achou a chave -> TERMINA
+            if (atual == nullptr) return false; // encontrou uma folha E nao achou a chave -> TERMINA
         }
 
         // **************************************************************
@@ -260,24 +260,24 @@ class Arvore
         // **************************************************************
 
         // Se eh uma folha, basta elimina-lo e fazer o ptr do pai receber NULL
-        if (atual->getEsq() == NULL && atual->getDir() == NULL)
+        if (atual->getEsq() == nullptr && atual->getDir() == nullptr)
         {
-            if (atual == raiz ) raiz = NULL; // se raiz
+            if (atual == raiz ) raiz = nullptr; // se raiz
             else if (filho_esq)
-                pai->setEsq(NULL); // se for filho a esquerda do pai
+                pai->setEsq(nullptr); // se for filho a esquerda do pai
             else
-                pai->setDir(NULL); // se for filho a direita do pai
+                pai->setDir(nullptr); // se for filho a direita do pai
             //apaga o no
         }
         // Se eh pai e nao possui um filho a direita, substitui pela subarvore a esquerda
-        else if (atual->getDir() == NULL)
+        else if (atual->getDir() == nullptr)
         {
             if (atual == raiz) raiz = atual->getEsq(); // se raiz
             else if (filho_esq) pai->setEsq(atual->getEsq()); // se for filho a esquerda do pai
             else pai->setDir(atual->getEsq()); // se for filho a direita do pai
         }
         // Se eh pai e nao possui um filho a esquerda, substitui pela subarvore a direita
-        else if (atual->getEsq() == NULL)
+        else if (atual->getEsq() == nullptr)
         {
             if (atual == raiz) raiz = atual->getDir(); // se raiz
             else if (filho_esq) pai->setEsq(atual->getDir()); // se for filho a esquerda do pai
@@ -293,8 +293,8 @@ class Arvore
             else pai->setDir(sucessor); // se for filho a direita do pai
             sucessor->setEsq(atual->getEsq()); // acertando os ponteiros esquerda e direita do sucessor
         }
-        // atual->dir = NULL;
-        // atual->esq = NULL;
+        // atual->dir = nullptr;
+        // atual->esq = nullptr;
         delete atual;
         Balancear();
         return true;
@@ -306,7 +306,7 @@ class Arvore
         No *sucessor = apaga;
         No *atual = apaga->getDir(); // vai para a subarvore a direita
 
-        while (atual != NULL)   // enquanto nao chegar no no mais a esquerda
+        while (atual != nullptr)   // enquanto nao chegar no no mais a esquerda
         {
             paidosucessor = sucessor;
             sucessor = atual;
@@ -333,7 +333,7 @@ class Arvore
     void RotacaoSimplesDireita(No*& p, No*& u){//passar ponteiro por referencia
         No * pPai = PesquisarPai(p->chave, raiz);
         bool pFilhoEsq;
-        if (pPai != NULL)
+        if (pPai != nullptr)
             pFilhoEsq = pPai->esq == p; // p eh filho esq?     
         
         p->setEsq(u->getDir());
@@ -347,9 +347,9 @@ class Arvore
         if(raiz == p)
             raiz = u;
         else{//p nao eh raiz
-            if(pFilhoEsq)
+            if(pFilhoEsq && pPai != nullptr)
                 pPai->esq = u;
-            else
+            else if (pPai != nullptr)
                 pPai->dir = u;
         }
     }
@@ -357,7 +357,7 @@ class Arvore
     void RotacaoDuplaDireita(No*& p, No*& u, No*& v){
         No * pPai = PesquisarPai(p->chave, raiz);
         bool pFilhoEsq;
-        if (pPai != NULL)
+        if (pPai != nullptr)
             pFilhoEsq = pPai->esq == p; // p eh filho esq?
         
         v = u->getDir(); // aqui poderia ser o q caso T2 e T3 sejam nulos
@@ -381,10 +381,11 @@ class Arvore
         // p = v; // p passa ser o v
         if(raiz == p)
             raiz = v;
+
         else{//p nao eh raiz
-            if(pFilhoEsq)
+            if(pFilhoEsq && pPai != nullptr)
                 pPai->esq = v;
-            else
+            else if (pPai != nullptr)
                 pPai->dir = v;
         }
     }
@@ -392,7 +393,7 @@ class Arvore
     void RotacaoSimplesEsquerda(No*& p, No*& z){
         No * pPai = PesquisarPai(p->chave, raiz);
         bool pFilhoEsq;
-        if (pPai != NULL)
+        if (pPai != nullptr)
             pFilhoEsq = pPai->esq == p; // p eh filho esq?
         // cout << "\n\n\ndesenha arvore " << endl;DesenhaArvore();
         // cout << "p = " << p->chave << "   z = " << z->chave << endl;
@@ -411,9 +412,9 @@ class Arvore
         }
         else{//p nao eh raiz
             cout << "entra no else" << endl;
-            if(pFilhoEsq)
+            if(pFilhoEsq && pPai != nullptr)
                 pPai->esq = z;
-            else
+            else if (pPai != nullptr)
                 pPai->dir = z;
         }
     }
@@ -421,7 +422,7 @@ class Arvore
     void RotacaoDuplaEsquerda(No*& p, No*& z, No*& y){
         No * pPai = PesquisarPai(p->chave, raiz);
         bool pFilhoEsq = NULL;
-        if(pPai != NULL)
+        if(pPai != nullptr)
             pFilhoEsq = pPai->esq == p; // p eh filho esq?           
 
         // y = z->getEsq();
@@ -448,9 +449,9 @@ class Arvore
         if(raiz == p)
             raiz = y;
         else{//p nao eh raiz
-            if(pFilhoEsq)
+            if(pFilhoEsq && pPai != nullptr)
                 pPai->esq = y;
-            else
+            else if (pPai != nullptr)
                 pPai->dir = y;
         }
 
@@ -665,24 +666,16 @@ class Arvore
     string converterPalavra(string str){
         int cont = 0;
         transform(str.begin(),str.end(),str.begin(), ::tolower);
-        for (int i = 0; i < str.size(); i++){    
+        for (char & i : str){
             if(cont == 0){
-                str[i] = tolower(str[i]);//coloca maiuscula na primeira
+                i = tolower((char)i);//coloca maiuscula na primeira
                 cont++;
-                }else if(str[i]==' '){
+                }else if(i==' '){
                     cont = 0;
                 }
         }
         return str;
     }
-
-	void escreverCSV(vector<vector<string> >& tabela){
-		for (auto & i : tabela){
-			for (auto & y : i){
-				cout << y << endl;
-			}
-		}
-	}
 
 	void escreverCSV(){
 		std::ofstream myfile;
@@ -704,7 +697,7 @@ class Arvore
     // polimorfismo de sobrecarga
 	void percorrer(No* no, std::ofstream& myfile)
 	{
-		if(no != NULL)
+		if(no != nullptr)
 		{
 			percorrer(no->getEsq(), myfile);
 			//cout << no->getChave() << " ";

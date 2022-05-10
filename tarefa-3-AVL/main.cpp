@@ -48,7 +48,7 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
         arv.selecionarNo(alimento_informado);
-        if(arv.getSelecionado() !=NULL){
+        if(arv.getSelecionado() != nullptr){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
             break;
@@ -74,7 +74,7 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
         // std::getline (std::cin, alimento_informado);
         alimento_informado = arv.converterPalavra(alimento_informado);
         arv.selecionarNo(alimento_informado);
-        if(arv.getSelecionado() !=NULL && alimento_informado != "sair"){            
+        if(arv.getSelecionado() != nullptr && alimento_informado != "sair"){
             lista_alimentos.push_back(alimento_informado);
             cout << "Alimento registrado" << endl;
         }else if(alimento_informado != "sair"){
@@ -105,11 +105,11 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
 void remove1Alimento(Arvore &arv){
     std::string alimento_informado;
     while(true){
-        cout << "Insira o alimento consumido: ";
+        cout << "Insira o alimento a ser removido: ";
         cin >> alimento_informado;
         alimento_informado = arv.converterPalavra(alimento_informado);
         arv.selecionarNo(alimento_informado);
-        if(arv.getSelecionado() !=NULL){
+        if(arv.getSelecionado() != nullptr){
             cout << "Alimento encontrado = " << arv.getSelecionado()->getChave() << endl;
             break;
         }else{
