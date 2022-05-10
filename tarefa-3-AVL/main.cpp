@@ -14,7 +14,7 @@
 tuple < Arvore,vector<vector<string>>,vector<pair<string, float>>,vector<string>,vector<string> > inserirDadosArv(Arvore arv, 
 vector<vector<string>> tabela, vector<pair<string, float>> dados, vector<string> colunas, vector<string> alimentos){
 
-    lerCSV("dados/dados_finais.csv", tabela);
+    lerCSV("dados/sem-pai/dados_finais_RDD.csv", tabela);
     for(int j=1;j<tabela[0].size();j++)
     {
         //Pegar colunas disponíveis
@@ -63,6 +63,7 @@ void imprime1Alimento(vector<vector<string>> tabela, Arvore arv, vector<string> 
                     cout << tabela[0][j+1] << ": " << arv.getSelecionado()->procurarDado(colunas[j]) << endl;
                 }
             }
+            // arv.selecionado = nullptr;
 }
 
 void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> colunas,vector<string> alimentos){
@@ -94,6 +95,7 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
             }
             cout << tabela[0][j+1] << ": " << contador << endl;
     }
+    // arv.selecionado = nullptr;
     //Selecionar nó com esse nome -> Todos nomes estão no vetor alimentos
     //arv.selecionarNo(alimentos[0]);
     //Printar chave do nó
@@ -102,7 +104,7 @@ void imprimeAlimentos(vector<vector<string>> tabela, Arvore arv, vector<string> 
     //cout << arv.getSelecionado()->procurarDado(colunas[22]) << endl;
 }
 
-void remove1Alimento(Arvore arv){
+void remove1Alimento(Arvore &arv){
     std::string alimento_informado;
     while(true){
         cout << "Insira o alimento a ser removido: ";
